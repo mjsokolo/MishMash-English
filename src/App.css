@@ -1,6 +1,15 @@
-.App {
-  text-align: center;
+body {
+  font-family: "Heebo", sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
 }
+
+
+/* .App {
+  text-align: left;
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -35,4 +44,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
