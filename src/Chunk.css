@@ -1,22 +1,28 @@
 textarea.chunk {
-    border: 1px solid rgb(5, 0, 0);
-    font-size: inherit;
-    padding: 1px 6px;
-  }
-  
-textarea.chunk {
-    display: block;
-    max-width: 30em;
-    overflow: hidden;
-    min-height: 40px;
-    line-height: 20px;
-  }
+  border: 1px solid rgb(0, 0, 0);
+  font-size: inherit;
+  padding: 1px 6px;
+  resize: none;
+}
 
 textarea.chunk {
-	font-family: taamey frank,adobe-garamond-pro,crimson text,Georgia,times new roman,serif;
+  display: block;
+  max-width: 30em;
+  overflow: hidden;
+  min-height: 40px;
+  line-height: 20px;
+}
+
+textarea.chunk {
+  font-family: taamey frank, adobe-garamond-pro, crimson text, Georgia,
+    times new roman, serif;
   float: right;
   direction: rtl;
   white-space: pre-wrap;
-  color: blue;
-  clear: both /* used in conjunction with float to move new chunks to new line */
+  color: black;
+  clear: both; /* used in conjunction with float to move new chunks to new line */
+}
+
+button {
+  float: right;
 }

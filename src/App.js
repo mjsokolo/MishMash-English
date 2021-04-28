@@ -1,9 +1,6 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import Chunk from './Chunk';
 import Chunk2 from './Chunk2';
-import ChunkCollection from './chunkCollection';
-// import Parent from './TestApp';
 
 function App() {
   return (

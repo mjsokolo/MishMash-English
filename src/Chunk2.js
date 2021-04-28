@@ -1,18 +1,45 @@
 import React from 'react';
 import './Chunk.css';
 import TextareaAutosize from 'react-autosize-textarea';
+// import Note from './Note';
+
+const RenderChunks = (state, handleTextChange) => {
+  const chunks = state.order.map((id) => (
+    <TextareaAutosize
+      id={id}
+      class="chunk"
+      style={{ marginRight: state.indents[id] * 10 }}
+      onSelect={() => {
+        handleTextChange(id);
+      }}
+      onChange={() => {
+        handleTextChange(id);
+      }}
+      onClick={() => {
+        handleTextChange(id);
+      }}
+      value={state.txts[id]}
+    />
+  ));
+  return chunks;
+};
 
 class Chunk2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       caret: -1,
-      activeId: 0,
-      chunks: { id1: { indent: 0, txt: '' } },
+      activeId: 'id1',
       order: ['id1'],
+      indents: { id1: 0 },
+      txts: { id1: '' },
     };
     this.totalChunks = 1;
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSplit = this.handleSplit.bind(this);
+    this.handleMergeUp = this.handleMergeUp.bind(this);
+    this.handleTabOut = this.handleTabOut.bind(this);
+    this.handleTabIn = this.handleTabIn.bind(this);
   }
 
   handleTextChange(id) {
@@ -20,10 +47,11 @@ class Chunk2 extends React.Component {
     // preserve the "\n" character
     const e = document.activeElement;
     const txt = e.value.replace(/\n\r?/g, '<br />');
-    const updatedChunks = { ...this.state.chunks };
-    updatedChunks[id].txt = txt;
+    // const updatedChunks = { ...this.state.chunks };
+    const updatedTxts = { ...this.state.txts, [id]: txt };
+    // updatedChunks[id].txt = txt;
     this.setState({
-      chunks: updatedChunks,
+      txts: updatedTxts,
       caret: e.selectionStart,
       activeId: id,
     });
@@ -35,21 +63,17 @@ class Chunk2 extends React.Component {
     this.totalChunks += 1;
     const id2 = `id${this.totalChunks}`;
     const caret = this.state.caret;
-    const textOne = this.state.chunks[id].txt.substr(0, caret);
-    const textTwo = this.state.chunks[id].txt.substr(caret);
-
+    const textOne = this.state.txts[id].substr(0, caret);
+    const textTwo = this.state.txts[id].substr(caret);
     const newOrder = [...this.state.order];
     newOrder.splice(idx + 1, 0, id2);
 
-    const newChunks = { ...this.state.chunks };
-    newChunks[id].txt = textOne;
-    newChunks[id2] = { indent: 0, txt: textTwo };
-
-    this.setState({
+    this.setState((prevState) => ({
       activeId: id2,
-      chunks: newChunks,
+      txts: { ...prevState.txts, [id]: textOne, [id2]: textTwo },
+      indents: { ...prevState.indents, [id2]: 0 },
       order: newOrder,
-    });
+    }));
   }
 
   handleMergeUp() {
@@ -60,56 +84,54 @@ class Chunk2 extends React.Component {
       return 0;
     }
     const id2 = this.state.order[idx - 1];
-
-    const txt = this.state.chunks[id].txt;
-
+    const txt = this.state.txts[id];
     const newOrder = [...this.state.order];
     newOrder.splice(idx, 1);
-    const newChunks = { ...this.state.chunks };
-    delete newChunks[id];
-    newChunks[id2].txt += txt;
+
     this.setState({
       activeId: id2,
-      chunks: newChunks,
+      txts: { ...this.state.txts, [id2]: this.state.txts[id2] + txt },
+      indents: {
+        ...this.state.indents,
+        [id2]: this.state.indents[id2],
+        [id]: null,
+      },
       order: newOrder,
     });
   }
 
+  handleTabOut() {
+    const id = this.state.activeId;
+    this.setState({
+      indents: { ...this.state.indents, [id]: this.state.indents[id] + 1 },
+    });
+  }
+
+  handleTabIn() {
+    const id = this.state.activeId;
+    this.setState({
+      indents: { ...this.state.indents, [id]: this.state.indents[id] - 1 },
+    });
+  }
+
   render() {
-    const chunks = this.state.order.map((id) => (
-      <TextareaAutosize
-        id={id}
-        class="chunk"
-        onSelect={(event) => {
-          this.handleTextChange(id);
-        }}
-        onChange={(event) => {
-          this.handleTextChange(id);
-        }}
-        onClick={(event) => {
-          this.handleTextChange(id);
-        }}
-        value={this.state.chunks[id].txt}
-      />
-    ));
     return (
       <div>
-        <button type="button" onClick={this.handleSplit.bind(this)}>
+        <button type="button" onClick={this.handleSplit}>
           split
         </button>
-        <button type="button" onClick={this.handleMergeUp.bind(this)}>
+        <button type="button" onClick={this.handleMergeUp}>
           merge up
         </button>
-        <button type="button" onClick={this.handleMergeUp.bind(this)}>
+        <button type="button" onClick={this.handleTabOut}>
           &lt;&lt;&lt;
         </button>
-        <button type="button" onClick={this.handleMergeUp.bind(this)}>
+        <button type="button" onClick={this.handleTabIn}>
           &gt;&gt;&gt;
         </button>
-        {chunks}
+        {RenderChunks(this.state, this.handleTextChange)}
         {this.state.caret}
         {this.state.activeId}
-        <p></p>
         {this.state.order}
       </div>
     );
