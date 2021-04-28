@@ -1,5 +1,5 @@
 textarea.chunk {
-  border: 1px solid rgb(0, 0, 0);
+  border: 3px solid rgb(0, 0, 0);
   font-size: inherit;
   padding: 1px 6px;
   resize: none;
@@ -17,6 +17,7 @@ textarea.chunk {
   font-family: taamey frank, adobe-garamond-pro, crimson text, Georgia,
     times new roman, serif;
   float: right;
+  align: top;
   direction: rtl;
   white-space: pre-wrap;
   color: black;
@@ -25,4 +26,25 @@ textarea.chunk {
 
 button {
   float: right;
+}
+
+.item1 {
+  grid-area: side;
+  max-width: 5em;
+}
+.item2 {
+  grid-area: top;
+}
+.item3 {
+  grid-area: text;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'side top top'
+    'side text text';
+  grid-gap: 10px;
+  background-color: #c4c4c4;
+  padding: 10px;
 }

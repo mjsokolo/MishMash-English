@@ -1,4 +1,5 @@
 {
+  "homepage": "https://mjsokolo.github.io/love-the-args/",
   "name": "love-the-args",
   "version": "0.1.0",
   "private": true,
@@ -17,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +46,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
+    "gh-pages": "^3.1.0",
     "prettier": "^2.2.1"
   }
 }
