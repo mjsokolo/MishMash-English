@@ -1,6 +1,5 @@
-// import logo from './logo.svg';
 import './App.css';
-import Chunk2 from './Chunk2';
+import Chunk from './Chunk';
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
       {/* <ChunkCollection /> */}
       {/* <Chunk txt="paste hebrew here"/> */}
       {/* {TestApp()} */}
-      <Chunk2 />
+      <Chunk />
       {/* </header> */}
     </div>
   );

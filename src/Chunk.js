@@ -70,7 +70,7 @@ const RenderChunks = (state, handleTextChange) => {
   return chunks;
 };
 
-class Chunk2 extends React.Component {
+class Chunk extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -202,4 +202,4 @@ class Chunk2 extends React.Component {
     );
   }
 }
-export default Chunk2;
+export default Chunk;
