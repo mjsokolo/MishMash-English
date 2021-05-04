@@ -1,0 +1,17 @@
+.header_buttons {
+  float: right;
+}
+
+button {
+  /* background-color: burlywood; */
+  border: none;
+  background-color: #ccc;
+  border-radius: 16px;
+  margin: 5px;
+}
+button:hover {
+  background-color: #2196f3;
+}
+button:active {
+  background-color: chocolate;
+}
