@@ -7,7 +7,7 @@ function Note(dispatch, id, note, view, indent) {
   if (view == false || view == undefined) {
     return <div></div>;
   }
-  const Note = (
+  const n = (
     <TextareaAutosize
       id={id}
       class="note"
@@ -23,7 +23,7 @@ function Note(dispatch, id, note, view, indent) {
       value={note}
     />
   );
-  return Note;
+  return n;
 }
 
 function ToggleNoteButton(dispatch, id) {
