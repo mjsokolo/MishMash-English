@@ -35,8 +35,8 @@
   display: block;
   max-width: 30em;
   overflow: hidden;
-  min-height: 40px;
-  line-height: 20px;
+  min-height: 1em;
+  line-height: 1em;
   font-family: taamey frank, adobe-garamond-pro, crimson text, Georgia,
     times new roman, serif;
   direction: ltr;
