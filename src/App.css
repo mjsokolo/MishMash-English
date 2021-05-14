@@ -4,3 +4,21 @@ body {
   margin: 0 auto;
   padding: 1rem;
 }
+
+.canvas {
+  grid-area: left;
+}
+
+.right_panel {
+  grid-area: right;
+}
+
+.App {
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-gap: 0;
+  /* background-color: #c4c4c4; */
+  /* padding: 10px; */
+  float: right;
+  clear: both; /* used in conjunction with float to move new blocks to new line */
+}
