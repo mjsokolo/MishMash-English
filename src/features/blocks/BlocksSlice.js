@@ -11,6 +11,7 @@ export const BlocksSlice = createSlice({
     txts: { id1: '' },
     notes: { id1: '' },
     views: { id1: false },
+    positions: { id1: [0, 0] },
   },
   reducers: {
     // Text Updates
@@ -35,6 +36,9 @@ export const BlocksSlice = createSlice({
       const newOrder = [...state.order];
       newOrder.splice(idx + 1, 0, id2);
 
+      const pos = state.positions[id];
+      const newPosition = [pos[0], pos[1] + 50];
+
       state = {
         ...state,
         activeId: id2,
@@ -43,6 +47,7 @@ export const BlocksSlice = createSlice({
         indents: { ...state.indents, [id2]: 0 },
         notes: { ...state.notes, [id2]: '' },
         views: { ...state.views, [id2]: false },
+        positions: { ...state.positions, [id2]: newPosition },
       };
       return state;
     },
@@ -98,6 +103,10 @@ export const BlocksSlice = createSlice({
         state.notes[id] = action.status;
       });
     },
+    updatePosition: (state, action) => {
+      const { id, x, y } = action.payload;
+      state.positions[id] = [x, y];
+    },
   },
 });
 
@@ -110,5 +119,6 @@ export const {
   toggleNote,
   updateNote,
   toggleAllNotes,
+  updatePosition,
 } = BlocksSlice.actions;
 export default BlocksSlice.reducer;
