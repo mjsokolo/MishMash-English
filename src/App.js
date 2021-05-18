@@ -7,7 +7,7 @@ import Graph from './features/graph/Graph';
 function App() {
   return (
     <div className="App">
-      <div className="canvas">{Graph()}</div>
+      <div className="graph">{Graph()}</div>
       <div className="right_panel">
         {HeaderButtons()}
         {Blocks()}

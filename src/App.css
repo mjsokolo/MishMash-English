@@ -5,7 +5,7 @@ body {
   padding: 1rem;
 }
 
-.canvas {
+.graph {
   grid-area: left;
 }
 
