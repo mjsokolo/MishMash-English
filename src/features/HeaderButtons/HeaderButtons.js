@@ -1,12 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { mergeText, splitText, tabOut, tabIn } from '../blocks/BlocksSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import './HeaderButtons.css';
+import { ActionCreators } from 'redux-undo';
 
 export function MergeButton() {
   const dispatch = useDispatch();
   const mergeButton = (
-    <button type="button" onClick={() => dispatch(mergeText())}>
+    <button type="button" onClick={() => dispatch({ type: 'mergeText' })}>
       merge
     </button>
   );
@@ -16,7 +16,7 @@ export function MergeButton() {
 export function SplitButton() {
   const dispatch = useDispatch();
   const splitButton = (
-    <button type="button" onClick={() => dispatch(splitText())}>
+    <button type="button" onClick={() => dispatch({ type: 'splitText' })}>
       split
     </button>
   );
@@ -26,8 +26,8 @@ export function SplitButton() {
 export function TabOutButton() {
   const dispatch = useDispatch();
   const tabOutButton = (
-    <button type="button" onClick={() => dispatch(tabOut())}>
-      tabout
+    <button type="button" onClick={() => dispatch(ActionCreators.redo())}>
+      redo
     </button>
   );
   return tabOutButton;
@@ -35,12 +35,23 @@ export function TabOutButton() {
 
 export function TabInButton() {
   const dispatch = useDispatch();
-  const tabInButton = (
-    <button type="button" onClick={() => dispatch(tabIn())}>
-      tabin
+  // const tabInButton = (
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        dispatch(ActionCreators.undo());
+        const x = () => {
+          console.log(useSelector((state) => state));
+          x();
+        };
+      }}
+    >
+      undo
     </button>
   );
-  return tabInButton;
+  // );
+  // return tabInButton;
 }
 
 export default function HeaderButtons() {

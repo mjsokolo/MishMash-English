@@ -1,24 +1,20 @@
 import React from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
-import { toggleNote, updateNote } from './BlocksSlice';
 import './Blocks.css';
 
-function Note(dispatch, id, note, view, indent) {
-  if (view == false || view == undefined) {
+function Note(dispatch, id, note, view) {
+  if (view === false || view === undefined) {
     return <div></div>;
   }
   const n = (
     <TextareaAutosize
       id={id}
       class="note"
-      style={{
-        marginRight: indent * 10,
-      }}
-      onSelect={() => dispatch(updateNote(id))}
-      onChange={() => dispatch(updateNote(id))}
+      onSelect={() => dispatch({ type: 'updateNote', payload: { id: id } })}
+      onChange={() => dispatch({ type: 'updateNote', payload: { id: id } })}
       onClick={(e) => {
         if (e.ctrlKey || e.metaKey || e.shiftKey) return 0; // ignore shift clicks
-        dispatch(updateNote(id));
+        dispatch({ type: 'updateNote', payload: { id: id } });
       }}
       value={note}
     />
@@ -28,8 +24,11 @@ function Note(dispatch, id, note, view, indent) {
 
 function ToggleNoteButton(dispatch, id) {
   const toggle = (
-    <label class="switch">
-      <input type="checkbox" onClick={() => dispatch(toggleNote(id))} />
+    <label className="switch">
+      <input
+        type="checkbox"
+        onClick={() => dispatch({ type: 'toggleNote', payload: { id: id } })}
+      />
       <span class="slider round"></span>
     </label>
   );

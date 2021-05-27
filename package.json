@@ -30,6 +30,8 @@
     "react-scripts": "^4.0.3",
     "react-xarrows": "^1.7.0",
     "redux": "^4.1.0",
+    "redux-state-save": "^1.0.0",
+    "redux-undo": "^1.0.1",
     "resize-observer-polyfill": "^1.5.1",
     "web-vitals": "^1.1.1"
   },

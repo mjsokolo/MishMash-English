@@ -4,9 +4,9 @@ import Xarrow from 'react-xarrows';
 import './Graph.css';
 
 export default function SequentialPath() {
-  const order = useSelector((state) => state.blocks.order);
+  const order = useSelector((state) => state.blocks.present.order);
 
-  let links = {};
+  const links = {};
   for (let i = 0; i < order.length - 1; i++) {
     links[order[i]] = order[i + 1];
   }

@@ -1,10 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
-import blocksReducer from '../features/blocks/BlocksSlice';
+import undoable, { excludeAction } from 'redux-undo';
+import blocksReducer from '../features/blocks/BlocksReducer';
 import ArgsButtonsReducer from '../features/ArgButtons/ArgButtonsSlice';
 
 export default configureStore({
   reducer: {
-    blocks: blocksReducer,
+    blocks: undoable(blocksReducer, {
+      filter: excludeAction([
+        'updateId',
+        'updateCaret',
+        'updatePosition',
+        'toggleNote',
+        'updateNote',
+      ]),
+    }),
     args: ArgsButtonsReducer,
   },
 });

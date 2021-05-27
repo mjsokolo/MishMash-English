@@ -1,16 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import Draggable from 'react-draggable';
-import { updatePosition } from '../blocks/BlocksSlice';
 import './Graph.css';
 
-const Node = (id, position, txt) => {
-  const dispatch = useDispatch();
+const Node = (id, position, txt, dispatch) => {
   const handleDrag = (e, d) => {
     const id = e.srcElement.id;
-    dispatch(
-      updatePosition({ id: id, x: d.lastX + d.deltaX, y: d.lastY + d.deltaY })
-    );
+    dispatch({
+      type: 'updatePosition',
+      payload: {
+        id: id,
+        x: d.lastX + d.deltaX,
+        y: d.lastY + d.deltaY,
+      },
+    });
   };
   const [x, y] = position;
   return (
@@ -30,10 +33,11 @@ const Node = (id, position, txt) => {
 };
 
 export default function Nodes() {
-  const positions = useSelector((state) => state.blocks.positions);
-  const order = useSelector((state) => state.blocks.order);
-  const txts = useSelector((state) => state.blocks.txts);
+  const dispatch = useDispatch();
+  const positions = useSelector((state) => state.blocks.present.positions);
+  const order = useSelector((state) => state.blocks.present.order);
+  const txts = useSelector((state) => state.blocks.present.txts);
 
-  const nodes = order.map((id) => Node(id, positions[id], txts[id]));
+  const nodes = order.map((id) => Node(id, positions[id], txts[id], dispatch));
   return nodes;
 }
