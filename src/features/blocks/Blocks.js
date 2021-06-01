@@ -5,6 +5,7 @@ import Text from './Text';
 import './Blocks.css';
 
 function useTrait(initialValue) {
+  // forces synchronous updates for caret
   const [trait, updateTrait] = useState(initialValue);
   let current = trait;
   const get = () => current;

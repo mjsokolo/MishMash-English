@@ -1,15 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { ContextMenuTrigger } from 'react-contextmenu';
 import React from 'react';
 import Draggable from 'react-draggable';
 import './Graph.css';
 
 const Node = (id, position, txt, dispatch) => {
   const handleDrag = (e, d) => {
-    const id = e.srcElement.id;
     dispatch({
       type: 'updatePosition',
       payload: {
-        id: id,
+        id: e.srcElement.id,
         x: d.lastX + d.deltaX,
         y: d.lastY + d.deltaY,
       },
@@ -17,7 +17,7 @@ const Node = (id, position, txt, dispatch) => {
   };
   const [x, y] = position;
   return (
-    <div>
+    <ContextMenuTrigger id="1">
       <Draggable
         onStop={handleDrag}
         onDrag={handleDrag}
@@ -28,7 +28,7 @@ const Node = (id, position, txt, dispatch) => {
           {txt}
         </div>
       </Draggable>
-    </div>
+    </ContextMenuTrigger>
   );
 };
 
