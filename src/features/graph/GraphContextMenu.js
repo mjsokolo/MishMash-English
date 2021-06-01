@@ -1,5 +1,5 @@
 import React from 'react';
-import './Graph.css';
+import './css/GraphContextMenu.css';
 import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
 import { useDispatch } from 'react-redux';
 import blue from './cursors/blue.png';
@@ -28,22 +28,21 @@ const LAYOUT = {
   mishnah: ['אמירה', 'שאלה', 'תשובה', 'קושיא', 'תירוץ', 'ראיה', 'סיוע'],
 };
 
+export const contextMenuId = 'node_menu';
+
 export default function GraphContextMenu() {
+  // updates State and changes cursor color
   const handleClick = (event, data, element) => {
     const { target, name, dispatch } = data;
     const { id } = target;
     const { cursor } = MODES[name];
-
     document.body.style.cursor = `url(${cursor}), auto`;
-    dispatch({
-      type: 'SET_CURSOR',
-      payload: { cursor: name, id },
-    });
+    dispatch({ type: 'SET_CURSOR', payload: { cursor: name, id } });
   };
   const dispatch = useDispatch();
 
   return (
-    <ContextMenu id="1" className="context-menu">
+    <ContextMenu id={contextMenuId} className="context-menu">
       {Object.keys(LAYOUT).map((text) => (
         <SubMenu title={text}>
           {LAYOUT[text].map((category) => (

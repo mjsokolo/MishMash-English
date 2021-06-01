@@ -1,5 +1,5 @@
 import React from 'react';
-import './Graph.css';
+import './css/Graph.css';
 import Nodes from './Nodes';
 import SequentialPath from './SequentialPath';
 import GraphContextMenu from './GraphContextMenu';

@@ -1,17 +1,16 @@
 import { useSelector } from 'react-redux';
 import React from 'react';
 import Xarrow from 'react-xarrows';
-import './Graph.css';
 
 export default function SequentialPath() {
   const order = useSelector((state) => state.blocks.present.order);
 
   const links = {};
-  for (let i = 0; i < order.length - 1; i++) {
+  for (let i = 0; i < order.length - 1; i += 1) {
     links[order[i]] = order[i + 1];
   }
 
-  let path = [];
+  const path = [];
   Object.keys(links).forEach((key) =>
     path.push(
       <Xarrow
@@ -19,8 +18,8 @@ export default function SequentialPath() {
         end={links[key]}
         strokeWidth={1}
         lineColor="grey"
-        dashness={true}
         headColor="grey"
+        dashness
       />
     )
   );

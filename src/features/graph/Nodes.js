@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import React from 'react';
 import Draggable from 'react-draggable';
-import './Graph.css';
+import { contextMenuId } from './GraphContextMenu';
+import './css/Nodes.css';
 
 const Node = (id, position, txt, dispatch) => {
   const handleDrag = (e, d) => {
@@ -17,12 +18,12 @@ const Node = (id, position, txt, dispatch) => {
   };
   const [x, y] = position;
   return (
-    <ContextMenuTrigger id="1">
+    <ContextMenuTrigger id={contextMenuId}>
       <Draggable
         onStop={handleDrag}
         onDrag={handleDrag}
         key={id}
-        defaultPosition={{ x: x, y: y }}
+        defaultPosition={{ x, y }}
       >
         <div className="nodex" id={id}>
           {txt}
