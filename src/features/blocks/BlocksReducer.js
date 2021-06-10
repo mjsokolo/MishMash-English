@@ -1,19 +1,16 @@
 import { nanoid } from '@reduxjs/toolkit';
 
-export default function BlocksReducer(
-  state = {
-    caret: -1,
-    activeId: 'id1',
-    order: ['id1'],
-    txts: {
-      id1: '',
-    },
-    notes: { id1: '' },
-    views: { id1: false },
-    positions: { id1: [0, 0] },
-  },
-  action
-) {
+const initialState = {
+  caret: -1,
+  activeId: 'id1',
+  order: ['id1'],
+  txts: { id1: '' },
+  notes: { id1: '' },
+  views: { id1: false },
+  positions: { id1: [0, 0] },
+};
+
+export default function BlocksReducer(state = initialState, action) {
   switch (action.type) {
     case 'updateId':
       return {
