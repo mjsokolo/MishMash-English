@@ -25,7 +25,7 @@ const Node = (id, position, txt, dispatch) => {
         key={id}
         defaultPosition={{ x, y }}
       >
-        <div className="nodex" id={id}>
+        <div className="node" id={id}>
           {txt}
         </div>
       </Draggable>

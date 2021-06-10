@@ -9,23 +9,23 @@ import purple from './cursors/purple.png';
 import red from './cursors/red.png';
 import yellow from './cursors/yellow.png';
 
-const MODES = {
-  mikrei: { cursor: blue },
-  din: { cursor: green },
-  taahm: { cursor: pink },
-  koteret: { cursor: purple },
-  אמירה: { cursor: red },
-  שאלה: { cursor: yellow },
-  תשובה: { cursor: blue },
-  קושיא: { cursor: green },
-  תירוץ: { cursor: pink },
-  ראיה: { cursor: purple },
-  סיוע: { cursor: yellow },
+export const MODES = {
+  Mikrei: { cursor: blue, color: 'blue' },
+  Din: { cursor: green, color: 'green' },
+  Taahm: { cursor: pink, color: 'pink' },
+  Koteret: { cursor: purple, color: 'purple' },
+  אמירה: { cursor: red, color: 'red' },
+  שאלה: { cursor: yellow, color: 'yellow' },
+  תשובה: { cursor: blue, color: 'blue' },
+  קושיא: { cursor: green, color: 'green' },
+  תירוץ: { cursor: pink, color: 'pink' },
+  ראיה: { cursor: purple, color: 'purple' },
+  סיוע: { cursor: yellow, color: 'yellow' },
 };
 
 const LAYOUT = {
-  talmud: ['mikrei', 'din', 'taahm', 'koteret'],
-  mishnah: ['אמירה', 'שאלה', 'תשובה', 'קושיא', 'תירוץ', 'ראיה', 'סיוע'],
+  mishnah: ['Mikrei', 'Din', 'Taahm', 'Koteret'],
+  talmud: ['אמירה', 'שאלה', 'תשובה', 'קושיא', 'תירוץ', 'ראיה', 'סיוע'],
 };
 
 export const contextMenuId = 'node_menu';
@@ -33,21 +33,20 @@ export const contextMenuId = 'node_menu';
 export default function GraphContextMenu() {
   // updates State and changes cursor color
   const handleClick = (event, data, element) => {
-    const { target, name, dispatch } = data;
+    const { target, mode, dispatch } = data;
     const { id } = target;
-    const { cursor } = MODES[name];
-    document.body.style.cursor = `url(${cursor}), auto`;
-    dispatch({ type: 'SET_CURSOR', payload: { cursor: name, id } });
+    // document.body.style.cursor = `url(${cursor}), auto`;
+    dispatch({ type: 'SET_MODE', payload: { mode, id } });
   };
   const dispatch = useDispatch();
 
   return (
     <ContextMenu id={contextMenuId} className="context-menu">
-      {Object.keys(LAYOUT).map((text) => (
-        <SubMenu title={text}>
-          {LAYOUT[text].map((category) => (
-            <MenuItem onClick={handleClick} data={{ name: category, dispatch }}>
-              {category}
+      {Object.keys(LAYOUT).map((book) => (
+        <SubMenu title={book}>
+          {LAYOUT[book].map((mode) => (
+            <MenuItem onClick={handleClick} data={{ mode, dispatch }}>
+              {mode}
             </MenuItem>
           ))}
         </SubMenu>

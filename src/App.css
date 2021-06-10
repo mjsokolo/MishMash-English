@@ -11,6 +11,7 @@ body {
 
 .right_panel {
   grid-area: right;
+  padding-left: 10em;
 }
 
 .App {

@@ -1,12 +1,33 @@
-import React from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './Blocks.css';
 
-export default function Text(dispatch, id, txt, caretCounter) {
-  const text = (
+function useTrait(initialValue) {
+  // forces synchronous updates for caret
+  const [trait, updateTrait] = useState(initialValue);
+  let current = trait;
+  const get = () => current;
+  const set = (newValue) => {
+    current = newValue;
+    updateTrait(newValue);
+    return current;
+  };
+  return {
+    get,
+    set,
+  };
+}
+
+export default function Text({ id }) {
+  const caretCounter = useTrait(0);
+  const dispatch = useDispatch();
+  const txt = useSelector((state) => state.blocks.present.txts)[id];
+
+  return (
     <TextareaAutosize
       id={id}
-      class="text"
+      className="text"
       placeholder="paste hebrew here"
       onSelect={() => {
         const e = document.activeElement;
@@ -39,5 +60,4 @@ export default function Text(dispatch, id, txt, caretCounter) {
       value={txt}
     />
   );
-  return text;
 }

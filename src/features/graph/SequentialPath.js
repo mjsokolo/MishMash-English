@@ -4,6 +4,8 @@ import Xarrow from 'react-xarrows';
 
 export default function SequentialPath() {
   const order = useSelector((state) => state.blocks.present.order);
+  //triggers rerender
+  const positions = useSelector((state) => state.blocks.present.positions);
 
   const links = {};
   for (let i = 0; i < order.length - 1; i += 1) {
