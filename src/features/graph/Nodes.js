@@ -18,11 +18,11 @@ const Node = (id, position, txt, dispatch) => {
   };
   const [x, y] = position;
   return (
-    <ContextMenuTrigger id={contextMenuId}>
+    <ContextMenuTrigger id={contextMenuId} key={id}>
       <Draggable
         onStop={handleDrag}
         onDrag={handleDrag}
-        key={id}
+        // key={id}
         defaultPosition={{ x, y }}
       >
         <div className="node" id={id}>

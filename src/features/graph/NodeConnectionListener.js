@@ -1,8 +1,43 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+function onClick(event, graph, dispatch) {
+  switch (event.target.classList[0]) {
+    case 'react-contextmenu-item': {
+      // Entered Connection Mode
+      break;
+    }
+    case 'node': {
+      if (graph.selectedNode === null) {
+        console.log('Not in Connection Mode');
+      } else {
+        console.log('In Connection Mode');
+        if (graph.selectedNode === event.target.id) {
+          console.log('Same ID Clicked');
+        } else if (
+          graph.connections.includes([graph.selectedNode, event.target.id])
+        ) {
+          console.log('Connection Already in Present');
+        } else {
+          dispatch({
+            type: 'addConnection',
+            payload: {
+              connection: [graph.selectedNode, event.target.id, graph.mode],
+            },
+          });
+        }
+      }
+      dispatch({ type: 'resetMode' });
+      break;
+    }
+    default:
+      dispatch({ type: 'resetMode' });
+      break;
+  }
+}
+
 export default function NodeConnectionListener() {
-  const graph = useSelector((state) => state.graph);
+  const graph = useSelector((state) => state.blocks.present.graph);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,35 +50,4 @@ export default function NodeConnectionListener() {
     };
   }, [graph]);
   return <></>;
-}
-
-function onClick(event, graph, dispatch) {
-  switch (event.target.classList[0]) {
-    case 'react-contextmenu-item': {
-      console.log('Entered Connection Mode');
-      break;
-    }
-    case 'node': {
-      if (graph.id === null) {
-        console.log('Not in Connection Mode');
-      } else {
-        console.log('In Connection Mode');
-        if (graph.id === event.target.id) {
-          console.log('Same ID Clicked');
-        } else if (graph.connections.includes([graph.id, event.target.id])) {
-          console.log('Connection Already in Present');
-        } else {
-          dispatch({
-            type: 'ADD_CONNECTION',
-            payload: { connection: [graph.id, event.target.id, graph.mode] },
-          });
-        }
-      }
-      dispatch({ type: 'RESET_MODE' });
-      break;
-    }
-    default:
-      dispatch({ type: 'RESET_MODE' });
-      break;
-  }
 }

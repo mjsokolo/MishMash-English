@@ -4,7 +4,9 @@ import Xarrow from 'react-xarrows';
 import { MODES } from './GraphContextMenu';
 
 export default function NodeConnections() {
-  const connections = useSelector((state) => state.graph.connections);
+  const connections = useSelector(
+    (state) => state.blocks.present.graph.connections
+  );
   // triggers re-render on state change
   const positions = useSelector((state) => state.blocks.present.positions);
 
@@ -14,6 +16,7 @@ export default function NodeConnections() {
     const mode = connection[2];
     return (
       <Xarrow
+        key={start + end + mode}
         start={start}
         end={end}
         strokeWidth={3}

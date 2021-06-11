@@ -12,7 +12,7 @@ export default function Graph() {
       <div className="canvas">
         <Nodes />
         <SequentialPath />
-        {NodeConnections()}
+        <NodeConnections />
       </div>
       <GraphContextMenu />
       <NodeConnectionListener />

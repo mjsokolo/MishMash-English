@@ -1,64 +1,55 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './HeaderButtons.css';
 import { ActionCreators } from 'redux-undo';
 
 export function MergeButton() {
   const dispatch = useDispatch();
-  const mergeButton = (
+  return (
     <button type="button" onClick={() => dispatch({ type: 'mergeText' })}>
       merge
     </button>
   );
-  return mergeButton;
 }
 
 export function SplitButton() {
   const dispatch = useDispatch();
-  const splitButton = (
+  return (
     <button type="button" onClick={() => dispatch({ type: 'splitText' })}>
       split
     </button>
   );
-  return splitButton;
 }
 
-export function TabOutButton() {
+export function RedoButton() {
   const dispatch = useDispatch();
-  const tabOutButton = (
+  return (
     <button type="button" onClick={() => dispatch(ActionCreators.redo())}>
       redo
     </button>
   );
-  return tabOutButton;
 }
 
-export function TabInButton() {
+export function UndoButton() {
   const dispatch = useDispatch();
-  // const tabInButton = (
+  // const UndoButton = (
   return (
     <button
       type="button"
       onClick={() => {
         dispatch(ActionCreators.undo());
-        const x = () => {
-          console.log(useSelector((state) => state));
-          x();
-        };
       }}
     >
       undo
     </button>
   );
-  // );
-  // return tabInButton;
 }
 
 export default function HeaderButtons() {
   return (
-    <div class="header_buttons">
-      {TabInButton()}
-      {TabOutButton()}
+    <div className="header_buttons">
+      {UndoButton()}
+      {RedoButton()}
       {MergeButton()}
       {SplitButton()}
     </div>

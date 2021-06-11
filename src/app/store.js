@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import undoable, { excludeAction } from 'redux-undo';
 import blocksReducer from '../features/blocks/BlocksReducer';
 import ArgsButtonsReducer from '../features/ArgButtons/ArgButtonsSlice';
-import GraphReducer from '../features/graph/GraphSlice';
 
 export default configureStore({
   reducer: {
@@ -13,9 +12,10 @@ export default configureStore({
         'updatePosition',
         'toggleNote',
         'updateNote',
+        'resetMode',
+        'setMode',
       ]),
     }),
     args: ArgsButtonsReducer,
-    graph: GraphReducer,
   },
 });

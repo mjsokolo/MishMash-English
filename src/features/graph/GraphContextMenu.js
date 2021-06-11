@@ -36,16 +36,20 @@ export default function GraphContextMenu() {
     const { target, mode, dispatch } = data;
     const { id } = target;
     // document.body.style.cursor = `url(${cursor}), auto`;
-    dispatch({ type: 'SET_MODE', payload: { mode, id } });
+    dispatch({ type: 'setMode', payload: { mode, id } });
   };
   const dispatch = useDispatch();
 
   return (
     <ContextMenu id={contextMenuId} className="context-menu">
       {Object.keys(LAYOUT).map((book) => (
-        <SubMenu title={book}>
+        <SubMenu title={book} key={book}>
           {LAYOUT[book].map((mode) => (
-            <MenuItem onClick={handleClick} data={{ mode, dispatch }}>
+            <MenuItem
+              onClick={handleClick}
+              data={{ mode, dispatch }}
+              key={mode}
+            >
               {mode}
             </MenuItem>
           ))}
