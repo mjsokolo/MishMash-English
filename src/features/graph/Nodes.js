@@ -22,6 +22,7 @@ const Node = (id, position, txt, dispatch) => {
       <Draggable
         onStop={handleDrag}
         onDrag={handleDrag}
+        key={id}
         defaultPosition={{ x, y }}
       >
         <div className="node" id={id}>
