@@ -8,7 +8,7 @@ import NodeConnections from './NodeConnections';
 
 export default function Graph() {
   return (
-    <div>
+    <>
       <div className="canvas">
         <Nodes />
         <SequentialPath />
@@ -16,6 +16,6 @@ export default function Graph() {
       </div>
       <GraphContextMenu />
       <NodeConnectionListener />
-    </div>
+    </>
   );
 }

@@ -8,16 +8,14 @@ function onClick(event, graph, dispatch) {
       break;
     }
     case 'node': {
-      if (graph.selectedNode === null) {
-        console.log('Not in Connection Mode');
-      } else {
-        console.log('In Connection Mode');
+      if (graph.selectedNode !== null) {
+        // console.log('In Connection Mode');
         if (graph.selectedNode === event.target.id) {
-          console.log('Same ID Clicked');
+          // console.log('Same ID Clicked');
         } else if (
           graph.connections.includes([graph.selectedNode, event.target.id])
         ) {
-          console.log('Connection Already in Present');
+          // console.log('Connection Already in Present');
         } else {
           dispatch({
             type: 'addConnection',

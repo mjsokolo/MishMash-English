@@ -29,7 +29,7 @@ export default function NodeConnections() {
               className="node_connection"
               style={{
                 color: MODES[mode].color,
-                transform: 'translate(100%, 100%)',
+                transform: 'translate(100%, 0%)',
               }}
             >
               {mode[0]}
