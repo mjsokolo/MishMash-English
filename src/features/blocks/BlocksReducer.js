@@ -115,6 +115,15 @@ export default function BlocksReducer(state = initialState, action) {
           connections: [...state.graph.connections, action.payload.connection],
         },
       };
+    case 'deleteConnection':
+      const newConnections = state.graph.connections
+        .filter(connection => connection[0] + connection[1] + connection[2] !== action.payload.id)
+      console.log(newConnections)
+      console.log(action.payload.id)
+      return {
+        ...state,
+        graph: { ...state.graph, connections: newConnections },
+      }
     default:
       return state;
   }

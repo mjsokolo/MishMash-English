@@ -28,7 +28,7 @@ const LAYOUT = {
   talmud: ['אמירה', 'שאלה', 'תשובה', 'קושיא', 'תירוץ', 'ראיה', 'סיוע'],
 };
 
-export const contextMenuId = 'node_menu';
+export const NodeMenuId = 'node_menu';
 
 export default function GraphContextMenu() {
   // updates State and changes cursor color
@@ -41,7 +41,7 @@ export default function GraphContextMenu() {
   const dispatch = useDispatch();
 
   return (
-    <ContextMenu id={contextMenuId} className="context-menu">
+    <ContextMenu id={NodeMenuId} className="context-menu">
       {Object.keys(LAYOUT).map((book) => (
         <SubMenu title={book} key={book}>
           {LAYOUT[book].map((mode) => (

@@ -1,7 +1,10 @@
 import { useSelector } from 'react-redux';
+import { ContextMenuTrigger } from 'react-contextmenu';
 import React from 'react';
 import Xarrow from 'react-xarrows';
 import { MODES } from './GraphContextMenu';
+import { ConnectionMenuId } from './ConnectionContextMenu';
+
 
 export default function NodeConnections() {
   const connections = useSelector(
@@ -15,8 +18,10 @@ export default function NodeConnections() {
     const end = connection[1];
     const mode = connection[2];
     return (
+      <ContextMenuTrigger id={ConnectionMenuId} key={start+end+mode}>
       <Xarrow
         key={start + end + mode}
+        id={start + end + mode}
         start={start}
         end={end}
         strokeWidth={3}
@@ -38,6 +43,7 @@ export default function NodeConnections() {
         }}
         path="grid"
       />
+      </ContextMenuTrigger>
     );
   });
 }
