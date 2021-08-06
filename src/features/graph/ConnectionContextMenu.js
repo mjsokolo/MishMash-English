@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/GraphContextMenu.css';
+import './css/NodeConnections.css';
 import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
 import { useDispatch } from 'react-redux';
 
@@ -14,7 +14,7 @@ export default function ConnectionContextMenu() {
   };
   const dispatch = useDispatch();
   return (
-    <ContextMenu id={ConnectionMenuId} className="context-menu">
+    <ContextMenu id={ConnectionMenuId}>
         <MenuItem
           onClick={handleClick}
           data={{reducerType: "deleteConnection", dispatch: dispatch}}

@@ -34,7 +34,7 @@ export default function BlocksReducer(state = initialState, action) {
       newOrder.splice(index + 1, 0, id2);
 
       const pos = state.positions[id1];
-      const newPosition = [pos[0], pos[1] + 50];
+      const newPosition = [pos[0], pos[1] + 100];
       return {
         ...state,
         activeId: id2,
@@ -118,8 +118,6 @@ export default function BlocksReducer(state = initialState, action) {
     case 'deleteConnection':
       const newConnections = state.graph.connections
         .filter(connection => connection[0] + connection[1] + connection[2] !== action.payload.id)
-      console.log(newConnections)
-      console.log(action.payload.id)
       return {
         ...state,
         graph: { ...state.graph, connections: newConnections },
