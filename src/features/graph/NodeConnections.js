@@ -57,10 +57,10 @@ export default function NodeConnections() {
         headSize={5}
         lineColor={MODES[mode].color}
         headColor={MODES[mode].color}
-        arrowBodyProps = {{class: "arrow_body"}}
-        arrowHeadProps = {{class: "arrow_head"}}
+        arrowBodyProps = {{className: "arrow_body"}}
+        arrowHeadProps = {{className: "arrow_head"}}
+        SVGcanvasProps = {{className: "svg"}}
         // path="grid"
-        zIndex = {0}
         label={{
           middle: (
             <div

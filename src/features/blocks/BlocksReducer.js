@@ -108,6 +108,14 @@ export default function BlocksReducer(state = initialState, action) {
         id: null,
       };
     case 'addConnection':
+      // Verify that connection does not already exist
+      if (state.graph.connections
+            .filter(c => c.toString() === action.payload.connection.toString() )
+            .length > 0 
+          && state.graph.connections.length > 0) {
+        return state
+      }
+      // Add connection
       return {
         ...state,
         graph: {
@@ -115,13 +123,13 @@ export default function BlocksReducer(state = initialState, action) {
           connections: [...state.graph.connections, action.payload.connection],
         },
       };
-    case 'deleteConnection':
-      const newConnections = state.graph.connections
-        .filter(connection => connection[0] + connection[1] + connection[2] !== action.payload.id)
+    case 'deleteConnection': {
+      const newConnections = state.graph.connections.filter(connection => connection[0] + connection[1] + connection[2] !== action.payload.id)
       return {
         ...state,
         graph: { ...state.graph, connections: newConnections },
       }
+    }
     default:
       return state;
   }

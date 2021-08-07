@@ -1,17 +1,9 @@
-/* .arrow_body {
-  position: relative;
+.svg:hover .arrow_body {
+  stroke-width: 8;
+}
+
+/* #connection_menu:hover ~ .arrow_body {
+  stroke-width: 8;
 } */
-
-.arrow_body:hover {
-  stroke-width: 8;
-}
-
-.arrow_head:hover ~ .arrow_body {
-  stroke-width: 8;
-}
-
-#connection_menu:hover ~ .arrow_body {
-  stroke-width: 8;
-}
 
 
