@@ -1,6 +1,5 @@
 import React from 'react';
-import './css/NodeConnections.css';
-import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
+import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch } from 'react-redux';
 
 export const ConnectionMenuId = 'connection_menu';
@@ -20,7 +19,7 @@ export default function ConnectionContextMenu() {
           data={{reducerType: "deleteConnection", dispatch: dispatch}}
           key='deleteConnection'
           >
-          {"delete"}
+          {"Delete"}
         </MenuItem>
     </ContextMenu>
   );

@@ -4,8 +4,8 @@ import Nodes from './Nodes';
 import SequentialPath from './SequentialPath';
 import GraphContextMenu from './GraphContextMenu';
 import ConnectionContextMenu from './ConnectionContextMenu'
-import NodeConnectionListener from './NodeConnectionListener';
-import NodeConnections from './NodeConnections';
+import ConnectionListener from './ConnectionListener';
+import NodeConnections from './Connections';
 
 export default function Graph() {
   return (
@@ -17,7 +17,7 @@ export default function Graph() {
       </div>
       <GraphContextMenu />
       <ConnectionContextMenu />
-      <NodeConnectionListener />
+      <ConnectionListener />
     </>
   );
 }

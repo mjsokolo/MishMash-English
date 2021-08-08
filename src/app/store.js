@@ -14,6 +14,7 @@ export default configureStore({
         'updateNote',
         'resetMode',
         'setMode',
+        'updateSelection',
       ]),
     }),
     args: ArgsButtonsReducer,

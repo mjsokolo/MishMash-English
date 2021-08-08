@@ -8,7 +8,7 @@
 }
 
 .text {
-  display: block;
+  display: inline;
   min-width: 15em;
   max-width: 30em;
   overflow: hidden;
@@ -136,4 +136,23 @@ input:checked + .slider:before {
   /* padding: 10px; */
   float: right;
   clear: both; /* used in conjunction with float to move new blocks to new line */
+}
+
+.text_editor {
+  /* color: black; */
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 0.25em;
+  background-color: beige;
+  /* height: 200px;
+  width: 300px; */
+  /* overflow-y: auto; */
+  display: inline;
+  min-width: 15em;
+  max-width: 30em;
+  overflow: hidden;
+  min-height: 4em;
+  line-height: 1.1em;
+  font-family: taamey frank, adobe-garamond-pro, crimson text, Georgia,
+    times new roman, serif;
+  direction: rtl;
 }

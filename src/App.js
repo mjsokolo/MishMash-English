@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <div className="graph">{Graph()}</div>
       <div className="right_panel">
-        {HeaderButtons()}
+        <HeaderButtons />
         <Blocks />
       </div>
     </div>

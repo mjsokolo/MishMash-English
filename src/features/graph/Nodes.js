@@ -4,6 +4,7 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import { NodeMenuId } from './GraphContextMenu';
 import './css/Nodes.css';
+import { convertFromRaw } from 'draft-js';
 
 const Node = (id, position, txt, dispatch) => {
   const handleDrag = (e, d) => {
@@ -26,7 +27,7 @@ const Node = (id, position, txt, dispatch) => {
         defaultPosition={{ x, y }}
       >
         <div className="node" id={id}>
-          {txt}
+          {convertFromRaw(JSON.parse(txt)).getPlainText()}
         </div>
       </Draggable>
     </ContextMenuTrigger>

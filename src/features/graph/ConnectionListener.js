@@ -34,7 +34,7 @@ function onClick(event, graph, dispatch) {
   }
 }
 
-export default function NodeConnectionListener() {
+export default function ConnectionListener() {
   const graph = useSelector((state) => state.blocks.present.graph);
   const dispatch = useDispatch();
 
