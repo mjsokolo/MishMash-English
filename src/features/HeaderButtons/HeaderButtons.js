@@ -45,7 +45,6 @@ export function SplitButton() {
   return (
     <button
       type="button"
-      onMouseLeave={(e) => e.preventDefault()}
       onMouseDown={(event) => {
         event.preventDefault();
         if (
@@ -135,11 +134,6 @@ export function HistoricalLayerButton(props) {
           newEditorState.getSelection().getAnchorKey(),
           newEditorState.getSelection().getAnchorOffset()
         );
-
-        // newEditorState = EditorState.forceSelection(
-        //   newEditorState,
-        //   newEditorState.getSelection()
-        // );
 
         dispatch({
           type: 'updateText',

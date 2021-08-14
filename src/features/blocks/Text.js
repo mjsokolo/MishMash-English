@@ -1,17 +1,8 @@
-import React, { useState, ReactPropTypes } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  SelectionState,
-  Modifier,
-  convertToRaw,
-  convertFromRaw,
-} from 'draft-js';
-import { splitState, createSelection, getSelectionInfo } from './helpers';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { splitState, getSelectionInfo } from './helpers';
 import './Blocks.css';
-import { set } from 'lodash';
 
 export const styleMap = {
   TANNA: {
@@ -52,29 +43,46 @@ export default function TextField({ id }) {
     console.log('infinite loop1');
     setEditorState(reduxEditorState);
   }
-  if (
-    reduxEditorState.getCurrentInlineStyle() !==
-    localEditorState.getCurrentInlineStyle()
-  ) {
-    console.log('infinite loop2'); // this is sometimes triggered a lot
-    console.log(reduxEditorState.getCurrentInlineStyle());
-    console.log(localEditorState.getCurrentInlineStyle());
-    console.log(reduxEditorState.getSelection());
-    console.log(reduxEditorState.getSelection());
+  // if (
+  //   reduxEditorState.getCurrentInlineStyle() !==
+  //   localEditorState.getCurrentInlineStyle()
+  // ) {
+  //   console.log('infinite loop2'); // this is sometimes triggered a lot
+  //   console.log(reduxEditorState.getCurrentInlineStyle());
+  //   console.log(localEditorState.getCurrentInlineStyle());
+  //   console.log(reduxEditorState.getSelection());
+  //   console.log(reduxEditorState.getSelection());
 
-    setEditorState(reduxEditorState);
-  }
+  //   setEditorState(reduxEditorState);
+  // }
   if (
     txt !== JSON.stringify(convertToRaw(localEditorState.getCurrentContent()))
   ) {
     console.log('infinite loop3');
     setEditorState(reduxEditorState);
   }
+  // Hack to force focus on texteditor after rerender
+  let domEditor = 0;
+  const setDomEditorRef = (ref) => (domEditor = ref);
+  useEffect(() => {
+    const element = document.activeElement;
+    if (
+      element.getAttribute('class') === 'notranslate public-DraftEditor-content'
+    ) {
+      if (
+        element.parentElement.parentElement.parentElement.getAttribute('id') ===
+        id
+      ) {
+        domEditor.focus();
+      }
+    }
+  });
 
   return (
     <>
       <div className="text_editor" id={id}>
         <Editor
+          ref={setDomEditorRef}
           customStyleMap={styleMap}
           editorState={localEditorState}
           onChange={(state) => {
@@ -92,7 +100,6 @@ export default function TextField({ id }) {
                 },
               });
             } else {
-              console.log(state.getSelection().getAnchorOffset());
               dispatch({
                 type: 'updateText',
                 payload: {
