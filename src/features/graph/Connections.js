@@ -44,6 +44,7 @@ export default function NodeConnections() {
 
     const yspacing = 10;
     const xspacing = 10;
+    console.log(mode, MODES);
 
     return (
       <ContextMenuTrigger id={ConnectionMenuId} key={start + end + mode}>

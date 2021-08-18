@@ -5,8 +5,22 @@ import Draggable from 'react-draggable';
 import { NodeMenuId } from './GraphContextMenu';
 import './css/Nodes.css';
 import { convertFromRaw } from 'draft-js';
+import { MODES } from './GraphContextMenu';
 
-const Node = (id, position, txt, dispatch) => {
+const Node = (props) => {
+  const { id } = props;
+  const dispatch = useDispatch();
+  const position = useSelector((state) => state.blocks.present.positions[id]);
+  const txt = useSelector((state) => state.blocks.present.txts[id]);
+  const label = useSelector((state) => state.blocks.present.graph.boxes[id]);
+
+  // determines style for border of node
+  let border = '';
+  if (label) {
+    border = MODES[label].color;
+  } else {
+    border = '';
+  }
   const handleDrag = (e, d) => {
     dispatch({
       type: 'updatePosition',
@@ -26,20 +40,19 @@ const Node = (id, position, txt, dispatch) => {
         key={id}
         defaultPosition={{ x, y }}
       >
-        <div className="node" id={id}>
+        <fieldset className="node" id={id} style={{ borderColor: border }}>
+          <legend className="label" style={{ color: border }}>
+            {label}
+          </legend>
           {convertFromRaw(JSON.parse(txt)).getPlainText()}
-        </div>
+        </fieldset>
       </Draggable>
     </ContextMenuTrigger>
   );
 };
 
 export default function Nodes() {
-  const dispatch = useDispatch();
-  const positions = useSelector((state) => state.blocks.present.positions);
   const order = useSelector((state) => state.blocks.present.order);
-  const txts = useSelector((state) => state.blocks.present.txts);
-
-  const nodes = order.map((id) => Node(id, positions[id], txts[id], dispatch));
+  const nodes = order.map((id) => <Node id={id} />);
   return nodes;
 }

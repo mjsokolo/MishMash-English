@@ -23,7 +23,7 @@ const initialState = {
   notes: { id1: '' },
   views: { id1: false },
   positions: { id1: [0, 0] },
-  graph: { connections: [], mode: null, selectedNode: null },
+  graph: { connections: [], mode: null, selectedNode: null, boxes: {} },
 };
 
 export default function BlocksReducer(state = initialState, action) {
@@ -168,7 +168,7 @@ export default function BlocksReducer(state = initialState, action) {
         ...state,
         graph: {
           ...state.graph,
-          mode: action.payload.mode,
+          mode: action.payload.label, // bad variables names
           selectedNode: action.payload.id,
         },
       };
@@ -179,6 +179,22 @@ export default function BlocksReducer(state = initialState, action) {
         mode: '',
         id: null,
       };
+    case 'setBox': {
+      const { label, id } = action.payload;
+      return {
+        ...state,
+        graph: { ...state.graph, boxes: { ...state.graph.boxes, [id]: label } },
+      };
+    }
+    case 'removeBox': {
+      const { id } = action.payload;
+      const boxes = { ...state.graph.boxes };
+      delete boxes[id];
+      return {
+        ...state,
+        graph: { ...state.graph, boxes: { ...boxes } },
+      };
+    }
     case 'addConnection':
       // Verify that connection does not already exist
       if (
