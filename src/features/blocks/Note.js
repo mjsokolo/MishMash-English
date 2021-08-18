@@ -2,6 +2,7 @@ import React from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
 import './Blocks.css';
 import { useSelector, useDispatch } from 'react-redux';
+import Switch from 'react-switch';
 
 function Note({ id }) {
   const note = useSelector((state) => state.blocks.present.notes[id]);
@@ -26,15 +27,23 @@ function Note({ id }) {
 }
 
 function ToggleNoteButton({ id }) {
+  const checked = useSelector((state) => state.blocks.present.views[id]);
   const dispatch = useDispatch();
   return (
-    <label className="switch">
-      <input
-        type="checkbox"
-        onChange={() => dispatch({ type: 'toggleNote', payload: { id } })}
-      />
-      <span className="slider round" />
-    </label>
+    <Switch
+      checked={checked}
+      onChange={() => dispatch({ type: 'toggleNote', payload: { id } })}
+      uncheckedIcon={false}
+      checkedIcon={false}
+      className="switch"
+      onColor="#888888"
+      onHandleColor="#ffffff"
+      offColor="#888888"
+      boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+      activeBoxShadow="0px 0px 1px 1px rgba(0, 0, 0, 0.2)"
+      height={10}
+      width={20}
+    />
   );
 }
 

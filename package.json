@@ -32,6 +32,7 @@
     "react-native": "^0.64.0",
     "react-redux": "^7.2.4",
     "react-scripts": "^4.0.3",
+    "react-switch": "^6.0.0",
     "react-xarrows": "^1.7.0",
     "redux": "^4.1.0",
     "redux-state-save": "^1.0.0",
