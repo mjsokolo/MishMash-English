@@ -6,6 +6,8 @@ import { NodeMenuId } from './GraphContextMenu';
 import './css/Nodes.css';
 import { convertFromRaw } from 'draft-js';
 import { MODES } from './GraphContextMenu';
+import { Editor, EditorState } from 'draft-js';
+import { styleMap } from '../blocks/Text';
 
 const Node = (props) => {
   const { id } = props;
@@ -44,7 +46,14 @@ const Node = (props) => {
           <legend className="label" style={{ color: border }}>
             {label}
           </legend>
-          {convertFromRaw(JSON.parse(txt)).getPlainText()}
+          <Editor
+            readOnly
+            customStyleMap={styleMap}
+            editorState={EditorState.createWithContent(
+              convertFromRaw(JSON.parse(txt))
+            )}
+            onChange={() => {}}
+          />
         </fieldset>
       </Draggable>
     </ContextMenuTrigger>
@@ -53,6 +62,6 @@ const Node = (props) => {
 
 export default function Nodes() {
   const order = useSelector((state) => state.blocks.present.order);
-  const nodes = order.map((id) => <Node id={id} />);
+  const nodes = order.map((id) => <Node id={id} key={id} />);
   return nodes;
 }
