@@ -20,8 +20,9 @@ export default function NodeConnections() {
 
     anchors.hasOwnProperty(start)
       ? (anchors[start] += 1)
-      : (anchors[start] = 0);
-    anchors.hasOwnProperty(end) ? (anchors[end] += 1) : (anchors[end] = 0);
+      : (anchors[start] = 1);
+    anchors.hasOwnProperty(end) ? (anchors[end] += 1) : (anchors[end] = 1);
+    // start and end offsets begin at index 1 (leaves room for sequential path)
 
     // console.log(anchors);
     let sideStartOffset = anchors[start];
