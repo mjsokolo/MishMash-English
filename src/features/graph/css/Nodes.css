@@ -1,9 +1,9 @@
 .node {
   position: absolute;
-  top: 125px;
+  /* top: 125px; */
   /* left: 0px; */
   /* left: 0px; */
-  right: 300px;
+  /* right: 300px; */
   z-index: 1;
   /* border: 2px #999 solid; */
   border-radius: 5px;
