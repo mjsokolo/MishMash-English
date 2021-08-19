@@ -41,7 +41,7 @@ export default function GraphContextMenu() {
   // updates State and changes cursor color
   const handleClick = (event, data, element) => {
     const { target, label, type, dispatch } = data;
-    const { id } = target;
+    const { id } = element.firstChild;
     // document.body.style.cursor = `url(${cursor}), auto`;
     if (type === 'arrow') {
       dispatch({ type: 'setMode', payload: { label, id } });
@@ -52,7 +52,7 @@ export default function GraphContextMenu() {
 
   const removeBox = (event, data, element) => {
     const { target, dispatch } = data;
-    const { id } = target;
+    const { id } = element.firstChild;
     dispatch({ type: 'removeBox', payload: { id } });
   };
   const dispatch = useDispatch();
