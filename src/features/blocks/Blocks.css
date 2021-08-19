@@ -57,7 +57,7 @@
 }
 .switch {
   grid-area: switch;
-  top: 1.5em;
+  top: 0.5em;
 }
 
 .block {
@@ -84,7 +84,7 @@
   min-width: 15em;
   max-width: 30em;
   overflow: hidden;
-  min-height: 4em;
+  min-height: 1em;
   line-height: 1.1em;
   font-family: taamey frank, adobe-garamond-pro, crimson text, Georgia,
     times new roman, serif;
