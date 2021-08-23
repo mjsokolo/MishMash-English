@@ -20,6 +20,9 @@ export const styleMap = {
   STAM_MIDRASH: {
     color: 'orange',
   },
+  STAM_AMORA: {
+    color: 'red',
+  },
   CLEAR: {
     color: 'black',
   },

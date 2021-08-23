@@ -171,6 +171,7 @@ export default function HeaderButtons() {
         dataStyle="STAM_MIDRASH"
         name="Tannaitic from Stam"
       />
+      <HistoricalLayerButton dataStyle="STAM_AMORA" name="Amoraic from Stam" />
       <HistoricalLayerButton dataStyle="CLEAR" name="Clear" />
     </div>
   );
