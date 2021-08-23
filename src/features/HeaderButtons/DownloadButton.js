@@ -44,6 +44,9 @@ export function LoadState() {
     evt.preventDefault();
     // console.log(file.name);
     const file = document.getElementById('file').files[0];
+    if (!file) {
+      return;
+    }
     let reader = new FileReader();
     reader.readAsText(file);
     reader.onload = function () {

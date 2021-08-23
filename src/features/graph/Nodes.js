@@ -1,12 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { convertFromRaw, Editor, EditorState } from 'draft-js';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import React from 'react';
 import Draggable from 'react-draggable';
-import { NodeMenuId } from './GraphContextMenu';
+import { NodeMenuId, MODES } from './GraphContextMenu';
 import './css/Nodes.css';
-import { convertFromRaw } from 'draft-js';
-import { MODES } from './GraphContextMenu';
-import { Editor, EditorState } from 'draft-js';
 import { styleMap } from '../blocks/Text';
 
 const Node = (props) => {
@@ -27,7 +25,7 @@ const Node = (props) => {
     dispatch({
       type: 'updatePosition',
       payload: {
-        id: e.srcElement.id,
+        id,
         x: d.lastX + d.deltaX,
         y: d.lastY + d.deltaY,
       },
@@ -41,6 +39,7 @@ const Node = (props) => {
         onDrag={handleDrag}
         key={id}
         defaultPosition={{ x, y }}
+        position={{ x, y }}
       >
         <fieldset className="node" id={id} style={{ borderColor: border }}>
           <legend className="label" style={{ color: border }}>
