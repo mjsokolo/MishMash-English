@@ -13,8 +13,10 @@ function App() {
         <LoadState />
       </div>
       <div className="graph">{Graph()}</div>
-      <div className="right_panel">
+      <div className="right_buttons">
         <HeaderButtons />
+      </div>
+      <div className="right_panel">
         <Blocks />
       </div>
     </div>

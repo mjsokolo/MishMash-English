@@ -15,6 +15,12 @@ body {
   max-width: 15em;
 }
 
+.right_buttons {
+  grid-area: 'top_right';
+  padding-left: 10em;
+  max-width: 15em;
+}
+
 .load_save_buttons {
   grid-area: 'top_left';
 }
@@ -22,7 +28,7 @@ body {
 .App {
   display: grid;
   grid-template-areas:
-    'top_left right'
+    'top_left top_right'
     'left right';
   grid-gap: 0;
   /* background-color: #c4c4c4; */
