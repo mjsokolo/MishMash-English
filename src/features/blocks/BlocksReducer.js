@@ -28,6 +28,8 @@ const initialState = {
 
 export default function BlocksReducer(state = initialState, action) {
   switch (action.type) {
+    case 'loadState':
+      return action.payload.state;
     case 'updateId':
       return {
         ...state,
@@ -77,8 +79,8 @@ export default function BlocksReducer(state = initialState, action) {
         },
         splits: {
           ...state.splits,
-          [id1]: { slice1: 0, slice2: 0 },
-          [id2]: { slice1: 0, slice2: 0 },
+          [id1]: { slice1: textOne, slice2: textOne },
+          [id2]: { slice1: textTwo, slice2: textTwo },
         },
         notes: { ...state.notes, [id2]: '' },
         views: { ...state.views, [id2]: false },
