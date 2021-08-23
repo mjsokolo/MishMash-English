@@ -5,13 +5,13 @@
 button {
   /* background-color: burlywood; */
   border: none;
-  background-color: #ccc;
+  background-color: #ddd;
   border-radius: 16px;
   margin: 5px;
 }
 button:hover {
-  background-color: #2196f3;
+  background-color: #88ccee;
 }
 button:active {
-  background-color: chocolate;
+  background-color: #999933;
 }

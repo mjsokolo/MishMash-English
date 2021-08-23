@@ -18,7 +18,7 @@ body {
 .right_buttons {
   grid-area: 'top_right';
   padding-left: 10em;
-  max-width: 15em;
+  max-width: 16em;
 }
 
 .load_save_buttons {

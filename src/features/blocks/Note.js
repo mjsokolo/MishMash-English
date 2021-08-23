@@ -14,7 +14,7 @@ function Note({ id }) {
   return (
     <TextareaAutosize
       id={id}
-      class="note"
+      className="note"
       onSelect={() => dispatch({ type: 'updateNote', payload: { id } })}
       onChange={() => dispatch({ type: 'updateNote', payload: { id } })}
       onClick={(e) => {

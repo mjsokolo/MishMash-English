@@ -6,22 +6,40 @@ import './Blocks.css';
 
 export const styleMap = {
   TANNA: {
-    color: 'blue',
+    // borderBottom: '0px solid Black',
+    // fontWeight: 'bold',
+    // color: '#332288',
+    backgroundColor: '#BBCCEE',
   },
   AMORA: {
-    color: 'green',
-  },
-  AMORA_MIDRASH: {
-    color: 'aqua',
+    // borderBottom: '0px solid Black',
+    // fontWeight: 'bold',
+    // color: '#117733',
+    backgroundColor: '#CCDDAA',
   },
   STAM: {
-    color: 'purple',
+    // borderBottom: '0px solid Black',
+    // fontWeight: 'bold',
+    // color: '#882255',
+    backgroundColor: '#ffcccc',
+  },
+  AMORA_MIDRASH: {
+    // fontWeight: 'bold',
+    borderBottom: '3px solid #228833',
+    // color: '#332288',
+    backgroundColor: '#BBCCEE',
   },
   STAM_MIDRASH: {
-    color: 'orange',
+    // fontWeight: 'bold',
+    borderBottom: '3px solid #ee6677',
+    // color: '#332288',
+    backgroundColor: '#BBCCEE',
   },
   STAM_AMORA: {
-    color: 'red',
+    // fontWeight: 'bold',
+    borderBottom: '3px solid #ee6677',
+    // color: '#117733',
+    backgroundColor: '#CCDDAA',
   },
   CLEAR: {
     color: 'black',

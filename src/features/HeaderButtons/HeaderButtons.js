@@ -14,6 +14,7 @@ import {
   createSelection,
   getSelectionInfo,
 } from '../blocks/helpers';
+import { styleMap } from '../blocks/Text';
 
 export function MergeButton() {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ export function HistoricalLayerButton(props) {
   const selections = useSelector((state) => state.blocks.present.selections);
   return (
     <button
+      style={styleMap[props.dataStyle]}
       type="button"
       data-style={props.dataStyle}
       onMouseUp={(event) => event.preventDefault()}
@@ -162,17 +164,11 @@ export default function HeaderButtons() {
       <SplitButton />
       <HistoricalLayerButton dataStyle="TANNA" name="Tannaitic" />
       <HistoricalLayerButton dataStyle="AMORA" name="Amoraic" />
-      <HistoricalLayerButton
-        dataStyle="AMORA_MIDRASH"
-        name="Tannaitic from Amora"
-      />
       <HistoricalLayerButton dataStyle="STAM" name="Stam" />
-      <HistoricalLayerButton
-        dataStyle="STAM_MIDRASH"
-        name="Tannaitic from Stam"
-      />
-      <HistoricalLayerButton dataStyle="STAM_AMORA" name="Amoraic from Stam" />
       <HistoricalLayerButton dataStyle="CLEAR" name="Clear" />
+      <HistoricalLayerButton dataStyle="AMORA_MIDRASH" name="T from A" />
+      <HistoricalLayerButton dataStyle="STAM_MIDRASH" name="T from S" />
+      <HistoricalLayerButton dataStyle="STAM_AMORA" name="A from S" />
     </div>
   );
 }
@@ -184,6 +180,7 @@ const removeInlineStyles = (editorState) => {
     'AMORA_MIDRASH',
     'STAM',
     'STAM_MIDRASH',
+    'STAM_AMORA',
     'CLEAR',
   ];
   const contentState = editorState.getCurrentContent();

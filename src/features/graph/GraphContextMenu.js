@@ -4,7 +4,7 @@ import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const MODES = {
-  מקרה: { color: 'MidnightBlue', types: ['arrow', 'box'] },
+  מקרה: { color: '#44aa99', types: ['arrow', 'box'] },
   דין: { color: 'CadetBlue', types: ['arrow'] },
   טעם: { color: 'DarkSlateGrey', types: ['arrow'] },
   כותרת: { color: 'DarkSlateBlue', types: ['arrow', 'box'] },
