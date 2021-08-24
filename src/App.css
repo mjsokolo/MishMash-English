@@ -46,3 +46,9 @@ body {
   float: right;
   clear: both; /* used in conjunction with float to move new blocks to new line */
 }
+
+.Page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
