@@ -36,7 +36,7 @@ function ToggleNoteButton({ id }) {
       uncheckedIcon={false}
       checkedIcon={false}
       className="switch"
-      onColor="#888888"
+      onColor="#222255"
       onHandleColor="#ffffff"
       offColor="#888888"
       boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"

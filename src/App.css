@@ -16,12 +16,14 @@ body {
 }
 
 .right_buttons {
+  text-align: center;
   grid-area: 'top_right';
-  padding-left: 10em;
+  padding-left: 8.5em;
   max-width: 16em;
 }
 
 .load_save_buttons {
+  text-align: right;
   grid-area: 'top_left';
 }
 

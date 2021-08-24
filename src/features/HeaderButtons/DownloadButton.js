@@ -26,7 +26,7 @@ export function SaveState() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Save File:
+        {'Save File '}
         <input
           type="text"
           value={name}
