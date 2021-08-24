@@ -13,11 +13,19 @@ const Node = (props) => {
   const position = useSelector((state) => state.blocks.present.positions[id]);
   const txt = useSelector((state) => state.blocks.present.txts[id]);
   const label = useSelector((state) => state.blocks.present.graph.boxes[id]);
+  const selectedNode = useSelector(
+    (state) => state.blocks.present.graph.selectedNode
+  );
+  let style = {};
+  if (selectedNode === id) {
+    style = { borderColor: 'gold', backgroundColor: 'gold' };
+  }
 
   // determines style for border of node
   let border = '';
   if (label) {
     border = MODES[label].color;
+    style.borderColor = border;
   } else {
     border = '';
   }
@@ -41,7 +49,7 @@ const Node = (props) => {
         defaultPosition={{ x, y }}
         position={{ x, y }}
       >
-        <fieldset className="node" id={id} style={{ borderColor: border }}>
+        <fieldset className="node" id={id} style={style}>
           <legend className="label" style={{ color: border }}>
             {label}
           </legend>
