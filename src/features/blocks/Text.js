@@ -6,40 +6,31 @@ import './Blocks.css';
 
 export const styleMap = {
   TANNA: {
-    // borderBottom: '0px solid Black',
-    // fontWeight: 'bold',
-    // color: '#332288',
     backgroundColor: '#BBCCEE',
+    // borderBottom: '2em solid #BBCCEE',
   },
   AMORA: {
-    // borderBottom: '0px solid Black',
-    // fontWeight: 'bold',
-    // color: '#117733',
-    backgroundColor: '#CCDDAA',
+    backgroundColor: '#ccddaa',
+    // borderBottom: '.2em solid #ffcccc',
   },
   STAM: {
-    // borderBottom: '0px solid Black',
-    // fontWeight: 'bold',
-    // color: '#882255',
     backgroundColor: '#ffcccc',
+    // borderBottom: '.2em solid #CCDDAA',
   },
   AMORA_MIDRASH: {
-    // fontWeight: 'bold',
-    borderBottom: '3px solid #228833',
-    // color: '#332288',
     backgroundColor: '#BBCCEE',
+    borderBottom: '.2em solid #228833',
   },
   STAM_MIDRASH: {
-    // fontWeight: 'bold',
-    borderBottom: '3px solid #ee6677',
-    // color: '#332288',
     backgroundColor: '#BBCCEE',
+    borderBottom: '.2em solid #ee6677',
   },
   STAM_AMORA: {
-    // fontWeight: 'bold',
-    borderBottom: '3px solid #ee6677',
-    // color: '#117733',
-    backgroundColor: '#CCDDAA',
+    backgroundColor: '#ccddaa',
+    borderBottom: '.2em solid #ee6677',
+  },
+  TANAKH: {
+    fontWeight: 'bold',
   },
   CLEAR: {
     color: 'black',

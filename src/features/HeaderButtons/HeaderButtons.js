@@ -116,19 +116,19 @@ export function HistoricalLayerButton(props) {
 
         const contentState = convertFromRaw(JSON.parse(txts[id]));
         const newSelectionState = createSelection(selections[id]);
-        console.log(
-          'prior to update: ',
-          newSelectionState.getAnchorKey(),
-          newSelectionState.getAnchorOffset()
-        );
-
         let newEditorState = EditorState.createWithContent(contentState);
-
         newEditorState = EditorState.acceptSelection(
           newEditorState,
           newSelectionState
         );
-        newEditorState = removeInlineStyles(newEditorState);
+
+        if (props.clearer) {
+          newEditorState = clearAllInLineStyles(newEditorState);
+        } else if (props.layerable) {
+          // don't remove inline styles
+        } else {
+          newEditorState = removePrimaryInLineStyles(newEditorState);
+        }
         newEditorState = RichUtils.toggleInlineStyle(newEditorState, style);
 
         console.log(
@@ -165,24 +165,20 @@ export default function HeaderButtons() {
       <HistoricalLayerButton dataStyle="TANNA" name="Tannaitic" />
       <HistoricalLayerButton dataStyle="AMORA" name="Amoraic" />
       <HistoricalLayerButton dataStyle="STAM" name="Stam" />
-      <HistoricalLayerButton dataStyle="CLEAR" name="Clear" />
       <HistoricalLayerButton dataStyle="AMORA_MIDRASH" name="T from A" />
       <HistoricalLayerButton dataStyle="STAM_MIDRASH" name="T from S" />
       <HistoricalLayerButton dataStyle="STAM_AMORA" name="A from S" />
+      <HistoricalLayerButton
+        dataStyle="TANAKH"
+        name="Tanakh"
+        layerable={true}
+      />
+      <HistoricalLayerButton dataStyle="CLEAR" name="Clear" clearer={true} />
     </div>
   );
 }
 
-const removeInlineStyles = (editorState) => {
-  const styles = [
-    'TANNA',
-    'AMORA',
-    'AMORA_MIDRASH',
-    'STAM',
-    'STAM_MIDRASH',
-    'STAM_AMORA',
-    'CLEAR',
-  ];
+const removeInlineStyles = (editorState, styles) => {
   const contentState = editorState.getCurrentContent();
   const contentWithoutStyles = styles.reduce(
     (newContentState, style) =>
@@ -202,3 +198,28 @@ const removeInlineStyles = (editorState) => {
 
   return newEditorState;
 };
+
+const allStyles = [
+  'TANNA',
+  'AMORA',
+  'AMORA_MIDRASH',
+  'STAM',
+  'STAM_MIDRASH',
+  'STAM_AMORA',
+  'CLEAR',
+  'TANAKH',
+];
+
+const primaryStyles = [
+  'TANNA',
+  'AMORA',
+  'AMORA_MIDRASH',
+  'STAM',
+  'STAM_MIDRASH',
+  'STAM_AMORA',
+  'CLEAR',
+];
+const clearAllInLineStyles = (editorState) =>
+  removeInlineStyles(editorState, allStyles);
+const removePrimaryInLineStyles = (editorState) =>
+  removeInlineStyles(editorState, primaryStyles);
