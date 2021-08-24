@@ -4,20 +4,20 @@ import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const MODES = {
-  מקרה: { color: '#44aa99', types: ['arrow', 'box'] },
-  דין: { color: 'CadetBlue', types: ['arrow'] },
-  טעם: { color: 'DarkSlateGrey', types: ['arrow'] },
-  כותרת: { color: 'DarkSlateBlue', types: ['arrow', 'box'] },
-  מעשה: { color: 'LightSlateGrey', types: ['arrow', 'box'] },
-  אמירה: { color: 'DarkGreen', types: ['arrow', 'box'] },
-  שאלה: { color: 'Olive', types: ['arrow', 'box'] },
-  תשובה: { color: 'YellowGreen', types: ['arrow'] },
-  קושיא: { color: 'Tomato', types: ['arrow'] },
-  תירוץ: { color: 'OrangeRed', types: ['arrow'] },
-  ראיה: { color: 'DarkOrange', types: ['arrow'] },
-  סיוע: { color: 'Gold', types: ['arrow'] },
-  אגדה: { color: 'IndianRed', types: ['arrow', 'box'] },
-  אוקימתא: { color: 'DarkSalmon', types: ['arrow'] },
+  מקרה: { color: '#222255', types: ['arrow', 'box'] },
+  דין: { color: '#222255', types: ['arrow'] },
+  טעם: { color: '#222255', types: ['arrow'] },
+  כותרת: { color: '#222255', types: ['arrow', 'box'] },
+  מעשה: { color: '#222255', types: ['arrow', 'box'] },
+  אמירה: { color: '#ee6677', types: ['arrow', 'box'] },
+  שאלה: { color: '#ee6677', types: ['arrow', 'box'] },
+  תשובה: { color: '#ee6677', types: ['arrow'] },
+  קושיא: { color: '#ee6677', types: ['arrow'] },
+  תירוץ: { color: '#ee6677', types: ['arrow'] },
+  ראיה: { color: '#ee6677', types: ['arrow'] },
+  סיוע: { color: '#ee6677', types: ['arrow'] },
+  אגדה: { color: '#ee6677', types: ['arrow', 'box'] },
+  אוקימתא: { color: '#ee6677', types: ['arrow'] },
 };
 
 const LAYOUT = {
