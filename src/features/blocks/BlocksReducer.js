@@ -67,7 +67,28 @@ export default function BlocksReducer(state = initialState, action) {
 
       // Set new position of node in graph
       const pos = state.positions[id1];
-      const newPosition = [pos[0], pos[1] + 100];
+      const height = document.getElementsByClassName('node').namedItem(id1)
+        .clientHeight;
+      const newPosition = [pos[0], pos[1] + height + 15];
+      const currentPositions = Object.values(state.positions);
+
+      // Updates new node position if new node is on top of existing node
+      let i = 0;
+      while (
+        currentPositions.filter(
+          (p) => JSON.stringify(p) === JSON.stringify(newPosition)
+        ).length > 0
+      ) {
+        i += 1;
+        newPosition[0] += 15;
+        newPosition[1] += 15;
+        if (i > 5) {
+          // Stops after five attempts to change position
+          break;
+        }
+      }
+
+      // Create and Return new state
       return {
         ...state,
         activeId: id2,
