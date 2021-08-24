@@ -20,11 +20,19 @@ body {
   grid-area: 'top_right';
   padding-left: 8.5em;
   max-width: 16em;
+  background-color: beige;
+  margin-bottom: 1em;
+  border-bottom-right-radius: 0.25em;
+  border-top-right-radius: 0.25em;
 }
 
 .load_save_buttons {
   text-align: right;
   grid-area: 'top_left';
+  background-color: beige;
+  margin-bottom: 1em;
+  border-bottom-left-radius: 0.25em;
+  border-top-left-radius: 0.25em;
 }
 
 .App {
