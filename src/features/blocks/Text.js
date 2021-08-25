@@ -73,20 +73,13 @@ export default function TextField({ id }) {
     console.log('infinite loop3');
     setEditorState(reduxEditorState);
   }
-  // Hack to force focus on texteditor after rerender
+  // Hack to force focus on texteditor after rerender if component marked as active
+  const activeId = useSelector((state) => state.blocks.present.activeId);
   let domEditor = 0;
   const setDomEditorRef = (ref) => (domEditor = ref);
   useEffect(() => {
-    const element = document.activeElement;
-    if (
-      element.getAttribute('class') === 'notranslate public-DraftEditor-content'
-    ) {
-      if (
-        element.parentElement.parentElement.parentElement.getAttribute('id') ===
-        id
-      ) {
-        domEditor.focus();
-      }
+    if (activeId === id) {
+      domEditor.focus();
     }
   });
 
