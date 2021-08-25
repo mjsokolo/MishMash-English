@@ -49,7 +49,6 @@ export default function BlocksReducer(state = initialState, action) {
     case 'updateSelection':
       return {
         ...state,
-        activeId: action.payload.id,
         splits: { ...state.splits, [action.payload.id]: action.payload.split },
         selections: {
           ...state.selections,
