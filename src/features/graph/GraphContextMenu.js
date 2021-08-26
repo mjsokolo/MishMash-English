@@ -9,6 +9,7 @@ export const MODES = {
   טעם: { color: '#222255', types: ['arrow'] },
   כותרת: { color: '#222255', types: ['arrow', 'box'] },
   מעשה: { color: '#222255', types: ['arrow', 'box'] },
+  כלל: { color: '#222255', types: ['arrow', 'box'] },
   אמירה: { color: '#ee6677', types: ['arrow', 'box'] },
   שאלה: { color: '#ee6677', types: ['arrow', 'box'] },
   תשובה: { color: '#ee6677', types: ['arrow'] },
@@ -16,13 +17,13 @@ export const MODES = {
   תירוץ: { color: '#ee6677', types: ['arrow'] },
   ראיה: { color: '#ee6677', types: ['arrow'] },
   סיוע: { color: '#ee6677', types: ['arrow'] },
-  אגדה: { color: '#ee6677', types: ['arrow', 'box'] },
+  אגדתא: { color: '#ee6677', types: ['arrow', 'box'] },
   אוקימתא: { color: '#ee6677', types: ['arrow'] },
 };
 
 const LAYOUT = {
-  mishnah: ['מקרה', 'דין', 'טעם', 'כותרת', 'מעשה', 'אוקימתא'],
-  talmud: [
+  Tannaitic: ['מקרה', 'דין', 'טעם', 'כותרת', 'מעשה', 'אוקימתא', 'כלל'],
+  Talmud: [
     'אמירה',
     'שאלה',
     'תשובה',
@@ -30,7 +31,7 @@ const LAYOUT = {
     'תירוץ',
     'ראיה',
     'סיוע',
-    'אגדה',
+    'אגדתא',
     'אוקימתא',
   ],
 };
