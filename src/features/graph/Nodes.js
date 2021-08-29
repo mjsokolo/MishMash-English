@@ -41,7 +41,7 @@ const Node = (props) => {
   };
   const [x, y] = position;
   return (
-    <ContextMenuTrigger id={NodeMenuId} key={id}>
+    <ContextMenuTrigger id={NodeMenuId} key={id} holdToDisplay={-1}>
       <Draggable
         onStop={handleDrag}
         onDrag={handleDrag}
