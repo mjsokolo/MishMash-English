@@ -10,7 +10,7 @@ button {
   margin: 5px;
 }
 button:hover {
-  background-color: #88ccee;
+  background-color: #88ccee !important;
 }
 button:active {
   background-color: #999933;
