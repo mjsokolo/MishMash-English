@@ -59,7 +59,7 @@ export default function GraphContextMenu() {
   const dispatch = useDispatch();
 
   return (
-    <ContextMenu id={NodeMenuId} className="context-menu">
+    <ContextMenu id={NodeMenuId} className="context-menu" hideOnLeave>
       <MenuItem onClick={removeBox} data={{ dispatch }} key={'remove'}>
         {'Remove Box'}
       </MenuItem>

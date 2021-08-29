@@ -66,13 +66,22 @@ export default function BlocksReducer(state = initialState, action) {
       newOrder.splice(index + 1, 0, id2);
 
       // Set new position of node in graph
+      const textOneLength = convertFromRaw(JSON.parse(textOne)).getPlainText()
+        .length;
+      const textTwoLength = convertFromRaw(JSON.parse(textTwo)).getPlainText()
+        .length;
+
+      const OriginalNode1Height = document
+        .getElementsByClassName('node')
+        .namedItem(id1).clientHeight;
+      const newNode1Height =
+        (OriginalNode1Height * textOneLength) / (textOneLength + textTwoLength);
+
       const pos = state.positions[id1];
-      const height = document.getElementsByClassName('node').namedItem(id1)
-        .clientHeight;
-      const newPosition = [pos[0], pos[1] + height + 15];
-      const currentPositions = Object.values(state.positions);
+      const newPosition = [pos[0], pos[1] + newNode1Height + 50];
 
       // Updates new node position if new node is on top of existing node
+      const currentPositions = Object.values(state.positions);
       let i = 0;
       while (
         currentPositions.filter(
