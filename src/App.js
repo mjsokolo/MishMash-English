@@ -7,15 +7,19 @@ import { SaveState, LoadState } from './features/HeaderButtons/DownloadButton';
 
 function App() {
   return (
-    <div className="Page">
-      <div className="App">
+    <div className="App">
+      <div className="top">
         <div className="load_save_buttons">
           <SaveState />
           <LoadState />
         </div>
-        <div className="graph">{Graph()}</div>
         <div className="right_buttons">
           <HeaderButtons />
+        </div>
+      </div>
+      <div className="bottom">
+        <div className="left_panel">
+          <Graph />
         </div>
         <div className="right_panel">
           <Blocks />

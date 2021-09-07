@@ -1,25 +1,22 @@
-body {
-  font-family: 'Heebo', sans-serif;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-.graph {
-  grid-area: left;
+.left_panel {
+  grid-area: 'left';
 }
 
 .right_panel {
-  grid-area: right;
-  padding-left: 10em;
-  max-width: 15em;
+  grid-area: 'right';
+}
+
+.bottom {
+  display: grid;
+  grid-area: 'bottom';
+  grid-template-areas: 'left right';
 }
 
 .right_buttons {
   text-align: center;
   grid-area: 'top_right';
   padding-left: 8.5em;
-  max-width: 16em;
+  width: 16em;
   background-color: beige;
   margin-bottom: 1em;
   border-bottom-right-radius: 0.25em;
@@ -35,20 +32,19 @@ body {
   border-top-left-radius: 0.25em;
 }
 
-.App {
+.top {
+  position: sticky;
+  top: 0;
+  grid-area: 'top';
+  z-index: 99;
   display: grid;
-  grid-template-areas:
-    'top_left top_right'
-    'left right';
-  grid-gap: 0;
-  /* background-color: #c4c4c4; */
-  /* padding: 10px; */
-  float: right;
-  clear: both; /* used in conjunction with float to move new blocks to new line */
+  grid-template-areas: 'top_left top_right';
 }
 
-.Page {
-  display: flex;
+.App {
+  display: grid;
+  grid-template-areas: 'top', 'bottom';
+  grid-gap: 0;
   justify-content: center;
   align-items: center;
 }
