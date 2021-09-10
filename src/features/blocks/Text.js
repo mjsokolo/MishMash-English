@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -40,14 +40,12 @@ export default function TextField({ id }) {
   ) {
     setEditorState(reduxEditorState);
   }
-  // Force focus after (re)render
+  // Force focus after render if active
   const activeId = useSelector((state) => state.blocks.present.activeId);
-  let domEditor = 0;
-  const setDomEditorRef = (ref) => (domEditor = ref);
+  const editor = useRef();
   useEffect(() => {
-    // Forces focus to component if active
     if (activeId === id) {
-      domEditor.focus();
+      editor.current.focus();
     }
   });
 
@@ -66,7 +64,7 @@ export default function TextField({ id }) {
         }
       >
         <Editor
-          ref={setDomEditorRef}
+          ref={editor}
           customStyleMap={HistoricalStyles}
           editorState={localEditorState}
           onChange={(state) => {
