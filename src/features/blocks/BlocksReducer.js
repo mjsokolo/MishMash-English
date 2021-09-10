@@ -75,7 +75,8 @@ export default function BlocksReducer(state = initialState, action) {
         .getElementsByClassName('node')
         .namedItem(id1).clientHeight;
       const newNode1Height =
-        (OriginalNode1Height * textOneLength) / (textOneLength + textTwoLength);
+        (OriginalNode1Height * textOneLength) /
+        (textOneLength + textTwoLength + 0.01); // prevents division by zero
 
       const pos = state.positions[id1];
       const newPosition = [pos[0], pos[1] + newNode1Height + 50];
