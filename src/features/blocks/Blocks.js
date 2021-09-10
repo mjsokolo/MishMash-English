@@ -9,8 +9,8 @@ export default function Blocks() {
 
   const blocks = order.map((id) => (
     <div className="block" key={id}>
-      <ToggleNoteButton id={id} />
       <TextField id={id} />
+      <ToggleNoteButton id={id} />
       <Note id={id} />
     </div>
   ));

@@ -5,7 +5,7 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import { NodeMenuId, MODES } from './GraphContextMenu';
 import './css/Nodes.css';
-import { styleMap } from '../blocks/Text';
+import HistoricalStyles from '../../config/HistoricalStyles';
 
 const Node = (props) => {
   const { id } = props;
@@ -55,7 +55,7 @@ const Node = (props) => {
           </legend>
           <Editor
             readOnly
-            customStyleMap={styleMap}
+            customStyleMap={HistoricalStyles}
             editorState={EditorState.createWithContent(
               convertFromRaw(JSON.parse(txt))
             )}

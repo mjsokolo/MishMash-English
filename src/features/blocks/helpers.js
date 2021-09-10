@@ -1,10 +1,4 @@
-import {
-  EditorState,
-  SelectionState,
-  Modifier,
-  convertToRaw,
-  RichUtils,
-} from 'draft-js';
+import { SelectionState, Modifier, convertToRaw } from 'draft-js';
 
 export function splitState(state) {
   const caret = state.getSelection().getAnchorOffset();
@@ -46,24 +40,12 @@ export function splitState(state) {
 
 export function getSelectionInfo(state) {
   const selection = state.getSelection();
-
-  const flag = selection.getAnchorOffset() < selection.getFocusOffset();
-  if (flag) {
-    return {
-      anchorKey: selection.getAnchorKey(),
-      anchorOffset: selection.getAnchorOffset(),
-      focusKey: selection.getFocusKey(),
-      focusOffset: selection.getFocusOffset(),
-      isBackward: flag,
-    };
-  }
-
   return {
-    anchorKey: selection.getFocusKey(),
-    anchorOffset: selection.getFocusOffset(),
-    focusKey: selection.getAnchorKey(),
-    focusOffset: selection.getAnchorOffset(),
-    isBackward: flag,
+    anchorKey: selection.getAnchorKey(),
+    anchorOffset: selection.getAnchorOffset(),
+    focusKey: selection.getFocusKey(),
+    focusOffset: selection.getFocusOffset(),
+    isBackward: selection.isBackward,
   };
 }
 
@@ -72,12 +54,13 @@ export function createSelection({
   anchorOffset,
   focusKey,
   focusOffset,
+  isBackward,
 }) {
   return SelectionState.createEmpty('blockkey').merge({
     anchorKey,
     anchorOffset,
     focusKey,
     focusOffset,
-    isBackward: false,
+    isBackward,
   });
 }

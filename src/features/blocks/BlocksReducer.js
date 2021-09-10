@@ -18,7 +18,7 @@ const initialState = {
   },
   splits: { id1: { slice1: 0, slice2: 0 } },
   selections: {
-    id1: { anchorKey: 0, anchorOffset: 0, focusKey: 0, focusOffset: 0 },
+    id1: null,
   },
   notes: { id1: '' },
   views: { id1: false },

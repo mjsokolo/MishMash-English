@@ -14,7 +14,53 @@ import {
   createSelection,
   getSelectionInfo,
 } from '../blocks/helpers';
-import { styleMap } from '../blocks/Text';
+import HistoricalStyles from '../../config/HistoricalStyles';
+
+const removeInlineStyles = (editorState, styles) => {
+  const contentState = editorState.getCurrentContent();
+  const contentWithoutStyles = styles.reduce(
+    (newContentState, style) =>
+      Modifier.removeInlineStyle(
+        newContentState,
+        editorState.getSelection(),
+        style
+      ),
+    contentState
+  );
+
+  const newEditorState = EditorState.push(
+    editorState,
+    contentWithoutStyles,
+    'change-inline-style'
+  );
+
+  return newEditorState;
+};
+
+const allStyles = [
+  'TANNA',
+  'AMORA',
+  'AMORA_MIDRASH',
+  'STAM',
+  'STAM_MIDRASH',
+  'STAM_AMORA',
+  'CLEAR',
+  'TANAKH',
+];
+
+const primaryStyles = [
+  'TANNA',
+  'AMORA',
+  'AMORA_MIDRASH',
+  'STAM',
+  'STAM_MIDRASH',
+  'STAM_AMORA',
+  'CLEAR',
+];
+const clearAllInLineStyles = (editorState) =>
+  removeInlineStyles(editorState, allStyles);
+const removePrimaryInLineStyles = (editorState) =>
+  removeInlineStyles(editorState, primaryStyles);
 
 export function MergeButton() {
   const dispatch = useDispatch();
@@ -96,7 +142,7 @@ export function HistoricalLayerButton(props) {
   const selections = useSelector((state) => state.blocks.present.selections);
   return (
     <button
-      style={styleMap[props.dataStyle]}
+      style={HistoricalStyles[props.dataStyle]}
       type="button"
       data-style={props.dataStyle}
       onMouseUp={(event) => event.preventDefault()}
@@ -115,13 +161,18 @@ export function HistoricalLayerButton(props) {
         } = document.activeElement.parentElement.parentElement.parentElement;
 
         const contentState = convertFromRaw(JSON.parse(txts[id]));
-        const newSelectionState = createSelection(selections[id]);
+        let newSelectionState = createSelection(selections[id]);
         let newEditorState = EditorState.createWithContent(contentState);
         newEditorState = EditorState.acceptSelection(
           newEditorState,
           newSelectionState
         );
 
+        const originalContentHash = JSON.stringify(
+          newEditorState.getCurrentContent().getBlockMap()
+        );
+
+        // inline style handing logic
         if (props.clearer) {
           newEditorState = clearAllInLineStyles(newEditorState);
         } else if (props.layerable) {
@@ -131,23 +182,45 @@ export function HistoricalLayerButton(props) {
         }
         newEditorState = RichUtils.toggleInlineStyle(newEditorState, style);
 
-        console.log(
-          'after update:',
-          newEditorState.getSelection().getAnchorKey(),
-          newEditorState.getSelection().getAnchorOffset()
+        // check if the content styling would change.
+        // If it does, reset caret to 0
+        // and send update to redux store
+        const newContentHash = JSON.stringify(
+          newEditorState.getCurrentContent().getBlockMap()
         );
-
-        dispatch({
-          type: 'updateText',
-          payload: {
-            id,
-            txt: JSON.stringify(
-              convertToRaw(newEditorState.getCurrentContent())
-            ),
-            split: splitState(newEditorState),
-            selection: getSelectionInfo(newEditorState),
-          },
-        });
+        if (originalContentHash != newContentHash) {
+          // saving original split before selection reset
+          const split = splitState(newEditorState);
+          // create reset caret selection
+          const key = newEditorState
+            .getCurrentContent()
+            .getFirstBlock()
+            .getKey();
+          newSelectionState = createSelection({
+            anchorKey: key,
+            anchorOffset: 0,
+            focusKey: key,
+            focusOffset: 0,
+            isBackward: false,
+          });
+          // force new selection
+          newEditorState = EditorState.forceSelection(
+            newEditorState,
+            newSelectionState
+          );
+          // dispatch update
+          dispatch({
+            type: 'updateText',
+            payload: {
+              id,
+              txt: JSON.stringify(
+                convertToRaw(newEditorState.getCurrentContent())
+              ),
+              split,
+              selection: getSelectionInfo(newEditorState),
+            },
+          });
+        }
       }}
     >
       {props.name}
@@ -177,49 +250,3 @@ export default function HeaderButtons() {
     </div>
   );
 }
-
-const removeInlineStyles = (editorState, styles) => {
-  const contentState = editorState.getCurrentContent();
-  const contentWithoutStyles = styles.reduce(
-    (newContentState, style) =>
-      Modifier.removeInlineStyle(
-        newContentState,
-        editorState.getSelection(),
-        style
-      ),
-    contentState
-  );
-
-  const newEditorState = EditorState.push(
-    editorState,
-    contentWithoutStyles,
-    'change-inline-style'
-  );
-
-  return newEditorState;
-};
-
-const allStyles = [
-  'TANNA',
-  'AMORA',
-  'AMORA_MIDRASH',
-  'STAM',
-  'STAM_MIDRASH',
-  'STAM_AMORA',
-  'CLEAR',
-  'TANAKH',
-];
-
-const primaryStyles = [
-  'TANNA',
-  'AMORA',
-  'AMORA_MIDRASH',
-  'STAM',
-  'STAM_MIDRASH',
-  'STAM_AMORA',
-  'CLEAR',
-];
-const clearAllInLineStyles = (editorState) =>
-  removeInlineStyles(editorState, allStyles);
-const removePrimaryInLineStyles = (editorState) =>
-  removeInlineStyles(editorState, primaryStyles);
