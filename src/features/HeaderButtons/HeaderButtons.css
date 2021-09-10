@@ -13,5 +13,8 @@ button:hover {
   background-color: #88ccee !important;
 }
 button:active {
+  background-color: #497286 !important;
+}
+button:active {
   background-color: #999933;
 }

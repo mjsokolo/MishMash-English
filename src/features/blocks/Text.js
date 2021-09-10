@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   Editor,
   EditorState,
@@ -13,28 +14,26 @@ import HistoricalStyles from '../../config/HistoricalStyles';
 
 export default function TextField({ id }) {
   const txt = useSelector((state) => state.blocks.present.txts[id]);
-  // const activeId = useSelector((state) => state.blocks.present.activeId);
+  const dispatch = useDispatch();
   const selectionInfo = useSelector(
     (state) => state.blocks.present.selections[id]
   );
+  // Fetch & Create editor state
+  const editorState = EditorState.createWithContent(
+    convertFromRaw(JSON.parse(txt))
+  );
+  // Fetch & Create selection
   let selection = null;
   if (selectionInfo == null) {
     selection = SelectionState.createEmpty();
   } else {
     selection = createSelection(selectionInfo);
   }
-  const reduxEditorState = EditorState.forceSelection(
-    EditorState.createWithContent(convertFromRaw(JSON.parse(txt))),
-    selection
-  );
+  // Create editor state with selection & local state
+  const reduxEditorState = EditorState.forceSelection(editorState, selection);
   const [localEditorState, setEditorState] = useState(() =>
-    EditorState.forceSelection(
-      EditorState.createWithContent(convertFromRaw(JSON.parse(txt))),
-      selection
-    )
+    EditorState.forceSelection(editorState, selection)
   );
-  const dispatch = useDispatch();
-
   // Force local state to always be reduxEditorState on rerender
   if (
     txt !== JSON.stringify(convertToRaw(localEditorState.getCurrentContent()))
@@ -102,3 +101,6 @@ export default function TextField({ id }) {
     </>
   );
 }
+TextField.propTypes = {
+  id: PropTypes.string.isRequired,
+};
