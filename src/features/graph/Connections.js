@@ -90,8 +90,8 @@ export default function NodeConnections() {
               offset: { bottomness: 0, rightness: xspacing * sideEndOffset },
             },
           ]}
-          strokeWidth={3}
-          headSize={5}
+          strokeWidth={2}
+          headSize={3}
           lineColor={MODES[mode].color}
           headColor={MODES[mode].color}
           arrowBodyProps={{ className: 'arrow_body' }}
