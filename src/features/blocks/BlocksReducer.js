@@ -74,8 +74,10 @@ export default function BlocksReducer(state = initialState, action) {
       const OriginalNode1Height = document
         .getElementsByClassName('node')
         .namedItem(id1).clientHeight;
+
       const newNode1Height =
-        (OriginalNode1Height * textOneLength) / (textOneLength + textTwoLength);
+        (OriginalNode1Height * textOneLength) /
+        (textOneLength + textTwoLength + 0.01); // to prevent divisions by zero if text lengths are 0
 
       const pos = state.positions[id1];
       const newPosition = [pos[0], pos[1] + newNode1Height + 50];
@@ -145,9 +147,8 @@ export default function BlocksReducer(state = initialState, action) {
       // Creates Merged Content State
       const contentState1 = convertFromRaw(JSON.parse(state.txts[id1]));
       const contentState2 = convertFromRaw(JSON.parse(state.txts[id2]));
-      const selectionState2 = EditorState.createWithContent(
-        contentState2
-      ).getSelection();
+      const selectionState2 =
+        EditorState.createWithContent(contentState2).getSelection();
       const firstBlockKey = selectionState2.getAnchorKey();
       const insertionSelectionState = SelectionState.createEmpty(
         'blockkey'
