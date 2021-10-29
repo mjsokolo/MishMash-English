@@ -48,6 +48,7 @@ const Node = (props) => {
         key={id}
         defaultPosition={{ x, y }}
         position={{ x, y }}
+        bounds={{ left: 0, top: 0 }}
       >
         <fieldset className="node" id={id} style={style}>
           <legend className="label" style={{ color: border }}>
