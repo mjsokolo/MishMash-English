@@ -28,8 +28,31 @@ const initialState = {
 
 export default function BlocksReducer(state = initialState, action) {
   switch (action.type) {
-    case 'loadState':
-      return action.payload.state;
+    case 'loadState': {
+      const updatedPositions = action.payload.state.positions;
+
+      // Update node positions to avoid unaccesible nodes in Graph
+      const xoffset = Object.keys(updatedPositions).reduce(
+        (previous, key) => Math.min(updatedPositions[key][0], previous),
+        0
+      );
+      const yoffset = Object.keys(updatedPositions).reduce(
+        (previous, key) => Math.min(updatedPositions[key][1], previous),
+        0
+      );
+      Object.keys(updatedPositions).map((key, index) => {
+        updatedPositions[key] = [
+          updatedPositions[key][0] - xoffset,
+          updatedPositions[key][1] - yoffset,
+        ];
+        return updatedPositions;
+      });
+
+      return {
+        ...action.payload.state,
+        positions: updatedPositions,
+      };
+    }
     case 'updateId':
       return {
         ...state,
