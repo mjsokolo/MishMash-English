@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import Draggable from 'react-draggable';
 import GraphContextMenu from './features/graph/GraphContextMenu';
 import ConnectionContextMenu from './features/graph/ConnectionContextMenu';
 import ConnectionListener from './features/graph/ConnectionListener';
@@ -25,12 +24,9 @@ function App() {
         </div>
       </div>
       <div className="bottom">
-        <Draggable className="drag-wrap" handle=".drag-bar">
-          <div className="left_panel">
-            <div className="drag-bar" />
-            <Graph />
-          </div>
-        </Draggable>
+        <div className="left-panel">
+          <Graph />
+        </div>
         <div className="right_panel">
           <Blocks />
         </div>

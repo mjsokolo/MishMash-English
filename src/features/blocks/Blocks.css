@@ -35,7 +35,9 @@
   grid-gap: 0;
   /* background-color: #c4c4c4; */
   /* padding: 10px; */
-  float: right;
+  /* float: right; */
+  right: 0px;
+  position: absolute;
   clear: both; /* used in conjunction with float to move new blocks to new line */
 }
 
