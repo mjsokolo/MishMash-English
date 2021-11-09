@@ -19,6 +19,7 @@ export const MODES = {
   סיוע: { color: '#ee6677', types: ['arrow'] },
   אגדתא: { color: '#ee6677', types: ['arrow', 'box'] },
   אוקימתא: { color: '#ee6677', types: ['arrow'] },
+  מחלוקת: { color: '#ee6677', types: ['arrow', 'box'] },
 };
 
 const LAYOUT = {
@@ -33,6 +34,7 @@ const LAYOUT = {
     'סיוע',
     'אגדתא',
     'אוקימתא',
+    'מחלוקת',
   ],
 };
 
