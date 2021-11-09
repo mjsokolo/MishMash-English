@@ -16,7 +16,7 @@ export default function Graph() {
     <Draggable handle=".drag-bar">
       <div className="graph">
         <div className="drag-bar" />
-        <TransformWrapper
+        {/* <TransformWrapper
           id="abc"
           panning={{ disabled: true }}
           onWheel={forceRerender}
@@ -30,13 +30,13 @@ export default function Graph() {
             disabled: true,
           }}
           centerZoomedOut={true}
-        >
-          <TransformComponent>
-            <div className="canvas">
-              <Nodes />
-            </div>
-          </TransformComponent>
-        </TransformWrapper>
+        > */}
+        {/* <TransformComponent> */}
+        <div className="canvas">
+          <Nodes />
+        </div>
+        {/* </TransformComponent> */}
+        {/* </TransformWrapper> */}
         <SequentialPath />
         <NodeConnections />
       </div>

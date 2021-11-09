@@ -37,7 +37,7 @@
   /* padding: 10px; */
   /* float: right; */
   right: 0px;
-  clear: both; /* used in conjunction with float to move new blocks to new line */
+  /* clear: both; used in conjunction with float to move new blocks to new line */
 }
 
 .text_editor {

@@ -27,7 +27,7 @@ function App() {
         <div className="left-panel">
           <Graph />
         </div>
-        <div className="right_panel">
+        <div className="right-panel">
           <Blocks />
         </div>
       </div>
