@@ -52,7 +52,7 @@ export default function TextField({ id }) {
   return (
     <>
       <div
-        className="text_editor"
+        className="text-editor"
         id={id}
         onBlur={() =>
           dispatch({

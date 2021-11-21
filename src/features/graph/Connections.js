@@ -39,13 +39,11 @@ export default function NodeConnections() {
       sideEndOffset += 1;
       sideEndOffset /= 2;
     }
-    // console.log(anchors)
 
     const longStartOffset = anchors[start];
 
     const yspacing = 10;
     const xspacing = 10;
-    console.log(mode, MODES);
 
     return (
       <ContextMenuTrigger id={ConnectionMenuId} key={start + end + mode}>

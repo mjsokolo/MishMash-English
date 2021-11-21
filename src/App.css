@@ -4,7 +4,7 @@
   top: 0px;
   position: absolute;
   width: 100%;
-  height: 10em;
+  height: 20em;
   background: white;
 }
 
@@ -13,11 +13,8 @@
   position: absolute;
   right: 0px;
   top: 0px;
-  overflow-y: auto;
   height: 20em;
-  width: 100%;
-  padding-bottom: 30px;
-  z-index: 9;
+  width: 85%;
 }
 
 .bottom {

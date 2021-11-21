@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Draggable from 'react-draggable';
 import { Note, ToggleNoteButton } from './Note';
 import TextField from './Text';
 import './Blocks.css';
@@ -14,5 +15,14 @@ export default function Blocks() {
       <Note id={id} />
     </div>
   ));
-  return blocks;
+  return (
+    <>
+      <Draggable handle="#drag-bar-blocks">
+        <div id="blocks">
+          <div id="drag-bar-blocks" />
+          {blocks}
+        </div>
+      </Draggable>
+    </>
+  );
 }
