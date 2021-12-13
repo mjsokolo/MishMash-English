@@ -105,7 +105,7 @@ export default function NodeConnections() {
                   transform: 'translate(100%, 0%)',
                 }}
               >
-                {mode[0]}
+                {mode[0] + mode[1]}
               </div>
             ),
           }}
