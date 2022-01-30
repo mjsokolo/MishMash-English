@@ -83,3 +83,7 @@
   background: white;
   z-index: 10;
 }
+
+#blocks-selecting-area {
+  height: inherit;
+}

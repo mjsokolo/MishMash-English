@@ -11,6 +11,7 @@ const initialState = {
   caret: -1,
   activeId: 'id1',
   order: ['id1'],
+  groups: {},
   txts: {
     id1: JSON.stringify(
       convertToRaw(EditorState.createEmpty().getCurrentContent())
@@ -48,8 +49,13 @@ export default function BlocksReducer(state = initialState, action) {
         return updatedPositions;
       });
 
+      // backwards-compatibility change
+      // Add a groups state if it doesn't already exist
+      const groups = action.payload.state.groups || {};
+
       return {
         ...action.payload.state,
+        groups,
         positions: updatedPositions,
       };
     }
@@ -187,6 +193,36 @@ export default function BlocksReducer(state = initialState, action) {
         contentState1.getBlockMap()
       );
 
+      // Adjust groups state if merges occur on GroupNode Boundaries
+      const { groups } = state;
+      const newBoxes = { ...state.graph.boxes };
+      const newGroups = {};
+      Object.keys(groups).map((key) => {
+        if (id2 === groups[key][0]) {
+          // the starting node of a group is merging with node outside of group
+          newGroups[key] = [state.order[idx + 1], groups[key][1]];
+        } else if (id2 === groups[key][1]) {
+          // the ending node of a group is merging with the penultimate node of group
+          newGroups[key] = [groups[key][0], state.order[idx - 1]];
+        } else {
+          // the merging node is not a defining node of a group
+          newGroups[key] = groups[key];
+        }
+        // remove group, it's box, and connections if the end node is the same as start node
+        if (newGroups[key][0] === newGroups[key][1]) {
+          delete newGroups[key]; // delete group
+          delete newBoxes[key]; // delete box
+          // delete any connections of the deleted group
+          const temp = [...newConnections];
+          newConnections = [];
+          temp.forEach((c) => {
+            if (key !== c[0] && key !== c[1]) {
+              newConnections.push(c);
+            }
+          });
+        }
+      });
+
       return {
         ...state,
         activeId: id1,
@@ -203,7 +239,8 @@ export default function BlocksReducer(state = initialState, action) {
           ...state.notes,
           [id1]: state.notes[id1] + state.notes[id2],
         },
-        graph: { ...state.graph, connections: newConnections },
+        graph: { ...state.graph, connections: newConnections, boxes: newBoxes },
+        groups: newGroups,
       };
     }
     case 'toggleNote': {
@@ -277,6 +314,100 @@ export default function BlocksReducer(state = initialState, action) {
       return {
         ...state,
         graph: { ...state.graph, connections: newConnections },
+      };
+    }
+    case 'groupIds': {
+      const { start, end } = action.payload;
+      const { order } = state;
+      const { groups } = state;
+      const groupId = nanoid();
+
+      // Grouping single node is not allowed
+      if (start === end) {
+        return state;
+      }
+      // Get array of selected group's ids
+      const startIdx = order.indexOf(start);
+      const endIdx = order.indexOf(end);
+      const selectedGroup = order.slice(startIdx, endIdx + 1);
+
+      // Get all ids from existing groups
+      const idsInExistingGroups = new Set();
+      Object.keys(groups).forEach((groupId) => {
+        const group = groups[groupId];
+        const sIdx = order.indexOf(group[0]);
+        const eIdx = order.indexOf(group[1]);
+        const ids = order.slice(sIdx, eIdx + 1);
+        ids.forEach((id) => idsInExistingGroups.add(id));
+      });
+
+      // Checks that the selected group is valid:
+      // No id in selected group should exist within a pre-existing group
+      let containsElement = false;
+      selectedGroup.forEach((id) => {
+        if (idsInExistingGroups.has(id)) {
+          containsElement = true;
+        }
+      });
+      if (containsElement) {
+        return state;
+      }
+
+      // Returns updated groups object
+      return {
+        ...state,
+        groups: { ...state.groups, [groupId]: [start, end] },
+      };
+    }
+    case 'ungroupIds': {
+      const { start, end } = action.payload;
+      const { order, groups } = state;
+
+      // Get selection ids
+      const startIdx = order.indexOf(start);
+      const endIdx = order.indexOf(end);
+      const selection = order.slice(startIdx, endIdx + 1);
+
+      // For each group,
+      // if any of the selected nodes are in the group,
+      // then remove that group, its boxes, and its connections
+      const newGroups = { ...groups };
+      const newBoxes = { ...state.graph.boxes };
+      let newConnections = [...state.graph.connections];
+
+      Object.keys(groups).forEach((groupId) => {
+        // Get ids in group
+        const g = groups[groupId];
+        const sIdx = order.indexOf(g[0]);
+        const eIdx = order.indexOf(g[1]);
+        const ids = order.slice(sIdx, eIdx + 1);
+
+        // Get ids that are shared by group and selection
+        const sharedIds = ids.filter((id) => selection.indexOf(id) !== -1);
+
+        // If group contains selected ids,
+        // Remove group & group's boxes and connections
+        if (sharedIds.length > 0) {
+          delete newGroups[groupId];
+          delete newBoxes[groupId];
+          newConnections = [];
+          const temp = [...state.graph.connections];
+          temp.forEach((c) => {
+            if (groupId !== c[0] && groupId !== c[1]) {
+              newConnections.push(c);
+            }
+          });
+        }
+      });
+
+      return {
+        ...state,
+        groups: newGroups,
+        graph: {
+          ...state.graph,
+          boxes: newBoxes,
+          connections: newConnections,
+        },
       };
     }
     default:

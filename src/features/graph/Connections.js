@@ -12,6 +12,8 @@ export default function NodeConnections() {
   );
   // triggers re-render on state change
   const positions = useSelector((state) => state.blocks.present.positions);
+  const groups = useSelector((state) => state.blocks.present.groups);
+
   const anchors = {};
   return connections.map((connection) => {
     const start = connection[0];

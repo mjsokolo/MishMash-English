@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/GraphContextMenu.css';
+import '../../ContextMenu.css';
 import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 

@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import GroupContextMenu from './features/blocks/GroupsContextMenu';
 import GraphContextMenu from './features/graph/GraphContextMenu';
 import ConnectionContextMenu from './features/graph/ConnectionContextMenu';
 import ConnectionListener from './features/graph/ConnectionListener';
@@ -11,6 +12,7 @@ import { SaveState, LoadState } from './features/HeaderButtons/DownloadButton';
 function App() {
   return (
     <div className="App">
+      <GroupContextMenu />
       <GraphContextMenu />
       <ConnectionContextMenu />
       <ConnectionListener />
