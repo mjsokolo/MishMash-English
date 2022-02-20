@@ -76,9 +76,8 @@ export function MergeButton() {
         ) {
           return;
         }
-        const {
-          id,
-        } = document.activeElement.parentElement.parentElement.parentElement;
+        const { id } =
+          document.activeElement.parentElement.parentElement.parentElement;
         dispatch({ type: 'mergeText', payload: { id } });
       }}
     >
@@ -101,9 +100,8 @@ export function SplitButton() {
         ) {
           return;
         }
-        const {
-          id,
-        } = document.activeElement.parentElement.parentElement.parentElement;
+        const { id } =
+          document.activeElement.parentElement.parentElement.parentElement;
         dispatch({ type: 'splitText', payload: { id } });
       }}
     >
@@ -142,6 +140,7 @@ export function HistoricalLayerButton(props) {
   const selections = useSelector((state) => state.blocks.present.selections);
   return (
     <button
+      className="historical-layer-button"
       style={HistoricalStyles[props.dataStyle]}
       type="button"
       data-style={props.dataStyle}
@@ -156,9 +155,8 @@ export function HistoricalLayerButton(props) {
           return;
         }
         const style = event.currentTarget.getAttribute('data-style');
-        const {
-          id,
-        } = document.activeElement.parentElement.parentElement.parentElement;
+        const { id } =
+          document.activeElement.parentElement.parentElement.parentElement;
 
         const contentState = convertFromRaw(JSON.parse(txts[id]));
         let newSelectionState = createSelection(selections[id]);
@@ -231,22 +229,26 @@ export function HistoricalLayerButton(props) {
 export default function HeaderButtons() {
   return (
     <div className="header_buttons">
-      <UndoButton />
-      <RedoButton />
-      <MergeButton />
-      <SplitButton />
-      <HistoricalLayerButton dataStyle="TANNA" name="Tannaitic" />
-      <HistoricalLayerButton dataStyle="AMORA" name="Amoraic" />
-      <HistoricalLayerButton dataStyle="STAM" name="Stam" />
-      <HistoricalLayerButton dataStyle="AMORA_MIDRASH" name="T from A" />
-      <HistoricalLayerButton dataStyle="STAM_MIDRASH" name="T from S" />
-      <HistoricalLayerButton dataStyle="STAM_AMORA" name="A from S" />
-      <HistoricalLayerButton
-        dataStyle="TANAKH"
-        name="Tanakh"
-        layerable={true}
-      />
-      <HistoricalLayerButton dataStyle="CLEAR" name="Clear" clearer={true} />
+      <div id="command-buttons">
+        <UndoButton />
+        <RedoButton />
+        <MergeButton />
+        <SplitButton />
+      </div>
+      <div id="historical-layer-buttons">
+        <HistoricalLayerButton dataStyle="TANNA" name="Tannaitic" />
+        <HistoricalLayerButton dataStyle="AMORA" name="Amoraic" />
+        <HistoricalLayerButton dataStyle="STAM" name="Stam" />
+        <HistoricalLayerButton dataStyle="AMORA_MIDRASH" name="T from A" />
+        <HistoricalLayerButton dataStyle="STAM_MIDRASH" name="T from S" />
+        <HistoricalLayerButton dataStyle="STAM_AMORA" name="A from S" />
+        <HistoricalLayerButton
+          dataStyle="TANAKH"
+          name="Tanakh"
+          layerable={true}
+        />
+        <HistoricalLayerButton dataStyle="CLEAR" name="Clear" clearer={true} />
+      </div>
     </div>
   );
 }

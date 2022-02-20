@@ -3,7 +3,7 @@
   left: 0px;
   top: 0px;
   position: absolute;
-  width: 100%;
+  width: 140%;
   height: 20em;
   background: white;
 }
@@ -14,7 +14,7 @@
   right: 0px;
   top: 0px;
   height: 20em;
-  width: 85%;
+  width: 55%;
 }
 
 .bottom {
@@ -28,7 +28,7 @@
   text-align: center;
   grid-area: 'top_right';
   padding-left: 8.5em;
-  width: 16em;
+  width: 30em;
   background-color: beige;
   margin-bottom: 1em;
   border-bottom-right-radius: 0.25em;
@@ -36,12 +36,13 @@
 }
 
 .load_save_buttons {
-  text-align: right;
+  text-align: left;
   grid-area: 'top_left';
   background-color: beige;
   margin-bottom: 1em;
   border-bottom-left-radius: 0.25em;
   border-top-left-radius: 0.25em;
+  width: 30em;
 }
 
 .top {
@@ -55,7 +56,9 @@
 
 .App {
   display: grid;
-  grid-template-areas: 'top', 'bottom';
+  grid-template-areas:
+    'top'
+    'bottom';
   grid-gap: 0;
   justify-content: center;
   align-items: center;

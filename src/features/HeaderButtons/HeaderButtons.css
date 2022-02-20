@@ -1,5 +1,22 @@
 .header_buttons {
   float: right;
+  display: grid;
+  grid-template-areas:
+    'top'
+    'bottom';
+  grid-gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+#command-buttons {
+  grid-area: top;
+  width: 35em;
+}
+
+#historical-layer-buttons {
+  grid-area: bottom;
+  width: 35em;
 }
 
 button {
