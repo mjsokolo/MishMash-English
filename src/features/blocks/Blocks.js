@@ -28,7 +28,7 @@ export default function Blocks() {
   return (
     <>
       <ContextMenuTrigger id={GROUP_MENU_ID} holdToDisplay={-1}>
-        <Draggable handle="#drag-bar-blocks">
+        <Draggable handle="#drag-bar-blocks" bounds={{ top: 0 }}>
           <div id="blocks">
             <div id="drag-bar-blocks" />
             <div id="blocks-selecting-area">{blocks}</div>
@@ -43,13 +43,13 @@ export default function Blocks() {
         // Targets to select. You can register a queryselector or an Element.
         selectableTargets={['.text-editor']}
         // Whether to select by click (default: true)
-        selectByClick={false}
+        selectByClick={true}
         // Whether to select from the target inside (default: true)
         selectFromInside={true}
         // After the select, whether to select the next target with the selected target (deselected if the target is selected again).
         continueSelect={false}
         // Determines which key to continue selecting the next target via keydown and keyup.
-        // toggleContinueSelect={'shift'}
+        toggleContinueSelect={'shift'}
         // The container for keydown and keyup events
         // keyContainer={window}
         // The rate at which the target overlaps the drag area to be selected. (default: 100)

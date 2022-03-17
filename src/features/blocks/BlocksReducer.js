@@ -317,7 +317,7 @@ export default function BlocksReducer(state = initialState, action) {
       };
     }
     case 'groupIds': {
-      const { start, end } = action.payload;
+      const { start, end, selectionSize } = action.payload;
       const { order } = state;
       const { groups } = state;
       const groupId = nanoid();
@@ -330,6 +330,10 @@ export default function BlocksReducer(state = initialState, action) {
       const startIdx = order.indexOf(start);
       const endIdx = order.indexOf(end);
       const selectedGroup = order.slice(startIdx, endIdx + 1);
+      // Check that selected group is contiguous, otherwise not allowed
+      if (selectionSize !== selectedGroup.length) {
+        return state;
+      }
 
       // Get all ids from existing groups
       const idsInExistingGroups = new Set();

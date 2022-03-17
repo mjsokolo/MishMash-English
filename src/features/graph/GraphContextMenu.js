@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const MODES = {
   מקרה: { color: '#222255', types: ['arrow', 'box'] },
-  דין: { color: '#222255', types: ['arrow'] },
+  דין: { color: '#222255', types: ['arrow', 'box'] },
   טעם: { color: '#222255', types: ['arrow'] },
   כותרת: { color: '#222255', types: ['arrow', 'box'] },
   מעשה: { color: '#222255', types: ['arrow', 'box'] },

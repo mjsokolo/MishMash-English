@@ -8,7 +8,7 @@ import GroupNodes from './GroupNodes';
 
 export default function Graph() {
   return (
-    <Draggable handle=".drag-bar">
+    <Draggable handle=".drag-bar" bounds={{ top: 0 }}>
       <div className="graph">
         <div className="drag-bar" />
         <div className="canvas">

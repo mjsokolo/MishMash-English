@@ -5,7 +5,7 @@ import './css/Nodes.css';
 import { fetchGroupNodes } from './helpers';
 import { NodeMenuId, MODES } from './GraphContextMenu';
 
-const GROUPNODE_PADDING = 20;
+const GROUPNODE_PADDING = 10;
 
 function fetchGroupDimensions(groupNodes, positions) {
   // Calculates the top and left position and
@@ -48,8 +48,8 @@ function fetchGroupDimensions(groupNodes, positions) {
     })
   );
   // Compile CSS shape and position of GroupNode
-  const height = bottom - top;
-  const width = right - left;
+  const height = bottom - top - GROUPNODE_PADDING;
+  const width = right - left - GROUPNODE_PADDING;
   return { height, width, top, left };
 }
 
