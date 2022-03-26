@@ -6,6 +6,7 @@ import Draggable from 'react-draggable';
 import { NODE_MENU_ID, MODES, REMOVE_BOX_MENU_ID } from './GraphContextMenu';
 import './css/Nodes.css';
 import HistoricalStyles from '../../config/HistoricalStyles';
+import NodeLegend from './NodeLegend';
 
 export default function SingleNodes() {
   const order = useSelector((state) => state.blocks.present.order);
@@ -22,6 +23,9 @@ function SingleNode(props) {
   const txt = useSelector((state) => state.blocks.present.txts[id]);
   const boxLabels = useSelector(
     (state) => state.blocks.present.graph.boxes[id]
+  );
+  const connections = useSelector(
+    (state) => state.blocks.present.graph.connections
   );
   const selectedNode = useSelector(
     (state) => state.blocks.present.graph.selectedNode
@@ -42,43 +46,13 @@ function SingleNode(props) {
     border = '';
   }
 
-  // create box legend
-  let legend = '';
-  if (boxLabels) {
-    legend = boxLabels.map((label) => (
-      <div className="label" nodeid={id}>
-        <ContextMenuTrigger
-          id={REMOVE_BOX_MENU_ID}
-          key={id + label}
-          holdToDisplay={-1}
-          label={label}
-        >
-          <div nodeid={id} nodelabel={label}>
-            {' ⬛ ' + label}
-          </div>
-        </ContextMenuTrigger>
-      </div>
-    ));
-  }
-
-  // append arrow legend
-  let connections = useSelector(
-    (state) => state.blocks.present.graph.connections
-  );
-  connections = connections.filter((c) => c[0] == id);
-  let arrowLegend = '';
-  if (connections) {
-    arrowLegend = connections.map((c) => (
-      <div className="label" nodeid={id}>
-        {' ◀️ ' + c[2]}
-      </div>
-    ));
-  }
-
   // border style for arrows
-  if (connections) {
-    connections.forEach((c) => {
-      border = MODES[c[2]].color;
+  const connectionLabels = connections
+    .filter((c) => c[0] === id)
+    .map((c) => c[2]);
+  if (connectionLabels) {
+    connectionLabels.forEach((c) => {
+      border = MODES[c].color;
       style.borderColor = border;
     });
   } else {
@@ -114,10 +88,7 @@ function SingleNode(props) {
               color: border,
             }}
           >
-            <div>{arrowLegend}</div>
-            <br />
-            <br />
-            <div>{legend}</div>
+            <NodeLegend id={id} />
           </legend>
           <Editor
             readOnly

@@ -66,3 +66,52 @@ export function createNodesMapping(order, groups) {
   }
   return nodesMap;
 }
+
+/**
+ * Constructs dimensions for a group node
+ * @param {list} groupNodes - nodes in a group @example ['id1','id2','id3']
+ * @param {object} positions - positions of nodes @example {id1: [0,0], id2: [2,4], id3: [5,5]}
+ * @return {list} height, width, top, left - css dimensions of group
+ */
+const GROUPNODE_PADDING = 40;
+export function fetchGroupDimensions(groupNodes, positions) {
+  // Calculates the top and left position and
+  // compensates padding when group is rendered near
+  // parent element boundary
+  const left = Math.min(
+    ...groupNodes.map((node) => Math.max(0, positions[node][0]))
+  );
+  const top = Math.min(
+    ...groupNodes.map((node) => Math.max(0, positions[node][1]))
+  );
+  // Calculates the right and left position
+  // to contains outer-most SingleNodes with padding
+  const right = Math.max(
+    ...groupNodes.map((node) => {
+      let xOffset = 0;
+      try {
+        // verify that the rightest-most node has rendered
+        xOffset = document.getElementById(node).offsetWidth;
+      } catch (error) {
+        console.log(error);
+      }
+      return xOffset + positions[node][0];
+    })
+  );
+  const bottom = Math.max(
+    ...groupNodes.map((node) => {
+      let yOffset = 0;
+      try {
+        // verify that the lowest-most node has rendered
+        yOffset = document.getElementById(node).offsetHeight;
+      } catch (error) {
+        console.log(error);
+      }
+      return yOffset + positions[node][1] + GROUPNODE_PADDING;
+    })
+  );
+  // Compile CSS shape and position of GroupNode
+  const height = bottom - top;
+  const width = right - left;
+  return { height, width, top, left };
+}

@@ -26,14 +26,27 @@
   background-color: rgba(126, 113, 201, 0.7);
   z-index: 0;
   font-size: 0.5em;
-  margin-top: -1em;
+  margin-top: -4em;
 }
 
 .legend {
   font-size: 2em;
 }
 
-.label {
+.box-legend {
+  clear: right;
+}
+
+.arrow-label {
+  float: right;
+  line-height: 0.8em;
+}
+
+.clear {
+  clear: right;
+}
+
+.box-label {
   float: right;
   line-height: 0.8em;
 }
