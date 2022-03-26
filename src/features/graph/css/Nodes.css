@@ -9,6 +9,7 @@
   border-radius: 5px;
   text-align: right;
   min-width: 125px;
+  max-width: 300px;
   min-height: 2em;
   color: black;
   font-size: 0.5em;
