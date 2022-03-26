@@ -35,7 +35,7 @@
 
 .label {
   float: right;
-  line-height: 1em;
+  line-height: 0.8em;
 }
 
 .label:hover {
@@ -45,7 +45,7 @@
 
 .group-label {
   float: left;
-  line-height: 1em;
+  line-height: 0.8em;
 }
 
 .group-label:hover {

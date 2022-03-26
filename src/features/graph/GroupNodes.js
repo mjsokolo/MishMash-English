@@ -138,6 +138,7 @@ export default function GroupNodes() {
           <legend className="legend" style={{ color: border }}>
             <div>{arrowLegend}</div>
             <br />
+            <br />
             <div>{boxLegend}</div>
           </legend>
         </fieldset>

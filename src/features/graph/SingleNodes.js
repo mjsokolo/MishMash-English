@@ -67,7 +67,7 @@ function SingleNode(props) {
   );
   connections = connections.filter((c) => c[0] == id);
   let arrowLegend = '';
-  if (connections.length > 0) {
+  if (connections) {
     arrowLegend = connections.map((c) => (
       <div className="label" nodeid={id}>
         {' ◀️ ' + c[2]}
@@ -116,7 +116,8 @@ function SingleNode(props) {
           >
             <div>{arrowLegend}</div>
             <br />
-            {legend}
+            <br />
+            <div>{legend}</div>
           </legend>
           <Editor
             readOnly
