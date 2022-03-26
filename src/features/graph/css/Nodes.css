@@ -8,7 +8,7 @@
   /* border: 2px #999 solid; */
   border-radius: 5px;
   text-align: right;
-  width: 125px;
+  min-width: 125px;
   min-height: 2em;
   color: black;
   font-size: 0.5em;
@@ -25,8 +25,29 @@
   background-color: rgba(126, 113, 201, 0.7);
   z-index: 0;
   font-size: 0.5em;
+  margin-top: -1em;
+}
+
+.legend {
+  font-size: 2em;
 }
 
 .label {
-  font-size: 2em;
+  float: right;
+  line-height: 1em;
+}
+
+.label:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.group-label {
+  float: left;
+  line-height: 1em;
+}
+
+.group-label:hover {
+  font-weight: bold;
+  cursor: pointer;
 }

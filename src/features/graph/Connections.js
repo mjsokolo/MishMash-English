@@ -104,10 +104,15 @@ export default function NodeConnections() {
                 className="arrow_label"
                 style={{
                   color: MODES[mode].color,
-                  transform: 'translate(100%, 0%)',
+                  backgroundColor: 'white',
+                  borderStyle: 'solid',
+                  borderWidth: '0px',
+                  borderColor: MODES[mode].color,
+                  borderRadius: '5px',
+                  // transform: 'translate(100%, 0%)',
                 }}
               >
-                {mode[0] + mode[1]}
+                {"'" + mode[0] + mode[1]}
               </div>
             ),
           }}

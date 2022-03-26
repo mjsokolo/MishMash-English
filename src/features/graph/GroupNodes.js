@@ -3,7 +3,7 @@ import React from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import './css/Nodes.css';
 import { fetchGroupNodes } from './helpers';
-import { NodeMenuId, MODES } from './GraphContextMenu';
+import { NODE_MENU_ID, REMOVE_BOX_MENU_ID, MODES } from './GraphContextMenu';
 
 const GROUPNODE_PADDING = 10;
 
@@ -60,8 +60,11 @@ export default function GroupNodes() {
   const selectedNode = useSelector(
     (state) => state.blocks.present.graph.selectedNode
   );
-  const labels = useSelector((state) => state.blocks.present.graph.boxes);
-  // forces update when text changes (could effect the size of node)
+  const connections = useSelector(
+    (state) => state.blocks.present.graph.connections
+  );
+  const boxes = useSelector((state) => state.blocks.present.graph.boxes);
+  // forces update when text changes (could effect the size of node
   const texts = useSelector((state) => state.blocks.present.txts);
 
   const groupNodes = Object.keys(groups).map((key) => {
@@ -80,20 +83,62 @@ export default function GroupNodes() {
       Object.assign(style, { borderColor: 'gold', backgroundColor: 'gold' });
     }
     // Set border of the node if labeled
+    const boxLabels = boxes[key];
     let border = '';
-    const label = labels[key];
-    if (label) {
-      border = MODES[label].color;
-      style.borderColor = border;
+    if (boxLabels) {
+      boxLabels.forEach((label) => {
+        border = MODES[label].color;
+        style.borderColor = border;
+      });
+    } else {
+      border = '';
+    }
+
+    let boxLegend = '';
+    if (boxLabels) {
+      boxLegend = boxLabels.map((label) => (
+        <div className="group-label" nodeid={key}>
+          <ContextMenuTrigger
+            id={REMOVE_BOX_MENU_ID}
+            key={key + label}
+            holdToDisplay={-1}
+          >
+            <div nodeid={key} nodelabel={label}>
+              {label + ' ⬛ '}
+            </div>
+          </ContextMenuTrigger>
+        </div>
+      ));
+    }
+
+    // append arrow legend
+    const connectionLabels = connections.filter((c) => c[0] == key);
+    let arrowLegend = '';
+    if (connectionLabels) {
+      arrowLegend = connectionLabels.map((c) => (
+        <div className="label" nodeid={key}>
+          {c[2] + ' ◀️ '}
+        </div>
+      ));
+    }
+
+    // border style for arrows
+    if (connections) {
+      connections.forEach((c) => {
+        border = MODES[c[2]].color;
+        style.borderColor = border;
+      });
     } else {
       border = '';
     }
 
     return (
-      <ContextMenuTrigger id={NodeMenuId} key={key} holdToDisplay={-1}>
+      <ContextMenuTrigger id={NODE_MENU_ID} key={key} holdToDisplay={-1}>
         <fieldset id={key} className="node group-node" style={style}>
-          <legend className="label" style={{ color: border }}>
-            {label}
+          <legend className="legend" style={{ color: border }}>
+            <div>{arrowLegend}</div>
+            <br />
+            <div>{boxLegend}</div>
           </legend>
         </fieldset>
       </ContextMenuTrigger>

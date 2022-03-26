@@ -1,7 +1,10 @@
 import './App.css';
 import React from 'react';
 import GroupContextMenu from './features/blocks/GroupsContextMenu';
-import GraphContextMenu from './features/graph/GraphContextMenu';
+import {
+  GraphContextMenu,
+  RemoveBoxMenu,
+} from './features/graph/GraphContextMenu';
 import ConnectionContextMenu from './features/graph/ConnectionContextMenu';
 import ConnectionListener from './features/graph/ConnectionListener';
 import Blocks from './features/blocks/Blocks';
@@ -14,6 +17,7 @@ function App() {
     <div className="App">
       <GroupContextMenu />
       <GraphContextMenu />
+      <RemoveBoxMenu />
       <ConnectionContextMenu />
       <ConnectionListener />
       <div className="top">

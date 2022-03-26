@@ -24,7 +24,12 @@ const initialState = {
   notes: { id1: '' },
   views: { id1: false },
   positions: { id1: [0, 0] },
-  graph: { connections: [], mode: null, selectedNode: null, boxes: {} },
+  graph: {
+    connections: [],
+    mode: null,
+    selectedNode: null,
+    boxes: { id1: [] },
+  },
 };
 
 export default function BlocksReducer(state = initialState, action) {
@@ -53,10 +58,26 @@ export default function BlocksReducer(state = initialState, action) {
       // Add a groups state if it doesn't already exist
       const groups = action.payload.state.groups || {};
 
+      // backwards-compatibility change
+      // makes boxes into lists
+      const boxes = { ...state.graph.boxes };
+      const newBoxes = {};
+      Object.keys(boxes).forEach((key) => {
+        if (Array.isArray(boxes[key])) {
+          newBoxes[key] = boxes[key];
+        } else {
+          newBoxes[key] = [boxes[key]];
+        }
+      });
+
       return {
         ...action.payload.state,
         groups,
         positions: updatedPositions,
+        graph: {
+          ...action.payload.state.graph,
+          boxes: { ...newBoxes },
+        },
       };
     }
     case 'updateId':
@@ -146,6 +167,10 @@ export default function BlocksReducer(state = initialState, action) {
         notes: { ...state.notes, [id2]: '' },
         views: { ...state.views, [id2]: false },
         positions: { ...state.positions, [id2]: newPosition },
+        graph: {
+          ...state.graph,
+          boxes: { ...state.graph.boxes, [id2]: [] },
+        },
       };
     }
     case 'mergeText': {
@@ -173,6 +198,12 @@ export default function BlocksReducer(state = initialState, action) {
       const s = new Set(newConnections.map((array) => array.join()));
       newConnections = [...s].map((array) => array.split(','));
 
+      // Move merged box labels
+      let newBoxes = { ...state.graph.boxes };
+      newBoxes[id1] = newBoxes[id1].concat(newBoxes[id2]);
+      // Remove duplicate box labels
+      delete newBoxes[id2];
+
       // Creates Merged Content State
       const contentState1 = convertFromRaw(JSON.parse(state.txts[id1]));
       const contentState2 = convertFromRaw(JSON.parse(state.txts[id2]));
@@ -195,7 +226,6 @@ export default function BlocksReducer(state = initialState, action) {
 
       // Adjust groups state if merges occur on GroupNode Boundaries
       const { groups } = state;
-      const newBoxes = { ...state.graph.boxes };
       const newGroups = {};
       Object.keys(groups).map((key) => {
         if (id2 === groups[key][0]) {
@@ -211,7 +241,6 @@ export default function BlocksReducer(state = initialState, action) {
         // remove group, it's box, and connections if the end node is the same as start node
         if (newGroups[key][0] === newGroups[key][1]) {
           delete newGroups[key]; // delete group
-          delete newBoxes[key]; // delete box
           // delete any connections of the deleted group
           const temp = [...newConnections];
           newConnections = [];
@@ -272,20 +301,41 @@ export default function BlocksReducer(state = initialState, action) {
         mode: '',
         id: null,
       };
-    case 'setBox': {
+    case 'addBox': {
       const { label, id } = action.payload;
+
+      let boxes = [];
+      // fetch boxes if they already exist
+      if (id in state.graph.boxes) {
+        boxes = [...state.graph.boxes[id]];
+      }
+      // add label if label is new
+      if (!boxes.includes(label)) {
+        boxes.push(label);
+      }
+
       return {
         ...state,
-        graph: { ...state.graph, boxes: { ...state.graph.boxes, [id]: label } },
+        graph: {
+          ...state.graph,
+          boxes: {
+            ...state.graph.boxes,
+            [id]: boxes,
+          },
+        },
       };
     }
     case 'removeBox': {
-      const { id } = action.payload;
-      const boxes = { ...state.graph.boxes };
-      delete boxes[id];
+      const { id, label } = action.payload;
+      let boxes = [...state.graph.boxes[id]];
+
+      boxes = boxes.filter(function (value, index, arr) {
+        return value !== label;
+      });
+
       return {
         ...state,
-        graph: { ...state.graph, boxes: { ...boxes } },
+        graph: { ...state.graph, boxes: { ...state.graph.boxes, [id]: boxes } },
       };
     }
     case 'addConnection':

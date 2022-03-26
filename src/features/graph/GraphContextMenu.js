@@ -38,9 +38,10 @@ const LAYOUT = {
   ],
 };
 
-export const NodeMenuId = 'node_menu';
+export const NODE_MENU_ID = 'node_menu';
+export const REMOVE_BOX_MENU_ID = 'remove_box_menu_id';
 
-export default function GraphContextMenu() {
+export function GraphContextMenu() {
   // updates State and changes cursor color
   const handleClick = (event, data, element) => {
     const { target, label, type, dispatch } = data;
@@ -49,23 +50,14 @@ export default function GraphContextMenu() {
     if (type === 'arrow') {
       dispatch({ type: 'setMode', payload: { label, id } });
     } else {
-      dispatch({ type: 'setBox', payload: { label, id } });
+      dispatch({ type: 'addBox', payload: { label, id } });
     }
   };
 
-  const removeBox = (event, data, element) => {
-    const { target, dispatch } = data;
-    const { id } = element.firstChild;
-    dispatch({ type: 'removeBox', payload: { id } });
-  };
   const dispatch = useDispatch();
 
   return (
-    <ContextMenu id={NodeMenuId} className="context-menu" hideOnLeave>
-      <MenuItem onClick={removeBox} data={{ dispatch }} key={'remove'}>
-        {'Remove Box'}
-      </MenuItem>
-
+    <ContextMenu id={NODE_MENU_ID} className="context-menu" hideOnLeave>
       {Object.keys(LAYOUT).map((book) => (
         <SubMenu title={book} key={book}>
           {LAYOUT[book].map((label) => (
@@ -83,6 +75,25 @@ export default function GraphContextMenu() {
           ))}
         </SubMenu>
       ))}
+    </ContextMenu>
+  );
+}
+
+export function RemoveBoxMenu() {
+  const removeBox = (event, data, element) => {
+    const { target, dispatch } = data;
+    console.log(element);
+    const label = element.firstChild.getAttribute('nodelabel');
+    const id = element.firstChild.getAttribute('nodeid');
+    dispatch({ type: 'removeBox', payload: { id, label } });
+  };
+  const dispatch = useDispatch();
+
+  return (
+    <ContextMenu id={REMOVE_BOX_MENU_ID} className="context-menu" hideOnLeave>
+      <MenuItem onClick={removeBox} data={{ dispatch }} key={'remove'}>
+        {'Remove Box'}
+      </MenuItem>
     </ContextMenu>
   );
 }
