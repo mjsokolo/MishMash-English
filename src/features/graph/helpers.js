@@ -1,3 +1,5 @@
+import { MODES } from './GraphContextMenu';
+
 /**
  * Constructs ordered list of nodes in group
  * @param {list} order - ids in order @example ['a','start','b','end']
@@ -114,4 +116,23 @@ export function fetchGroupDimensions(groupNodes, positions) {
   const height = bottom - top;
   const width = right - left;
   return { height, width, top, left };
+}
+
+export function legendColor({ boxLabels, connectionLabels }) {
+  let color = '';
+  let legends = [];
+  if (boxLabels && connectionLabels) {
+    legends = boxLabels.concat(connectionLabels);
+  } else if (boxLabels) {
+    legends = boxLabels;
+  } else if (connectionLabels) {
+    legends = connectionLabels;
+  } else {
+    return color;
+  }
+  legends.forEach((label) => {
+    color = MODES[label].color;
+  });
+
+  return color;
 }

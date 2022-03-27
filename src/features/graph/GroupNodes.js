@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
-import { fetchGroupNodes, fetchGroupDimensions } from './helpers';
-import { NODE_MENU_ID, MODES } from './GraphContextMenu';
+import { fetchGroupNodes, fetchGroupDimensions, legendColor } from './helpers';
+import { NODE_MENU_ID } from './GraphContextMenu';
 import NodeLegend from './NodeLegend';
 import './css/Nodes.css';
 
@@ -37,32 +37,16 @@ export default function GroupNodes() {
     }
     // Set border of the node if labeled
     const boxLabels = boxes[key];
-    let border = '';
-    if (boxLabels) {
-      boxLabels.forEach((label) => {
-        border = MODES[label].color;
-        style.borderColor = border;
-      });
-    } else {
-      border = '';
-    }
-
-    // border style for arrows
-    if (connections) {
-      connections.forEach((c) => {
-        border = MODES[c[2]].color;
-        style.borderColor = border;
-      });
-    } else {
-      border = '';
-    }
+    const connectionLabels = connections
+      .filter((c) => c[0] === key)
+      .map((c) => c[2]);
+    const color = legendColor({ boxLabels, connectionLabels });
+    style.borderColor = color;
 
     return (
       <ContextMenuTrigger id={NODE_MENU_ID} key={key} holdToDisplay={-1}>
         <fieldset id={key} className="node group-node" style={style}>
-          <legend className="legend" style={{ color: border }}>
-            <NodeLegend id={key} />
-          </legend>
+          <NodeLegend id={key} />
         </fieldset>
       </ContextMenuTrigger>
     );

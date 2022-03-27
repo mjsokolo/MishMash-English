@@ -51,7 +51,7 @@
   line-height: 0.8em;
 }
 
-.label:hover {
+.box-label:hover {
   font-weight: bold;
   cursor: pointer;
 }

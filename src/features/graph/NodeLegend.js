@@ -1,30 +1,42 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { ContextMenuTrigger } from 'react-contextmenu';
 import { useSelector } from 'react-redux';
+import { ContextMenuTrigger } from 'react-contextmenu';
 import { REMOVE_BOX_MENU_ID } from './GraphContextMenu';
+import { legendColor } from './helpers';
 
 export default function NodeLegend({ id }) {
+  // collect box labels associated with node
+  const boxLabels = useSelector(
+    (state) => state.blocks.present.graph.boxes[id]
+  );
+  // collect arrow labels associated with node
+  const connections = useSelector(
+    (state) => state.blocks.present.graph.connections
+  );
+  const connectionLabels = connections
+    .filter((c) => c[0] === id)
+    .map((c) => c[2]);
+  // calculate legend color
+  const color = legendColor({ boxLabels, connectionLabels });
+
   return (
-    <>
-      <BoxLegend id={id} />
-      <ArrowLegend id={id} />
-    </>
+    <legend className="legend" style={{ color }}>
+      <ArrowLegend connectionLabels={connectionLabels} id={id} />
+      <BoxLegend boxLabels={boxLabels} id={id} />
+    </legend>
   );
 }
 NodeLegend.propTypes = {
   id: propTypes.string.isRequired,
 };
 
-export function BoxLegend({ id }) {
-  const boxLabels = useSelector(
-    (state) => state.blocks.present.graph.boxes[id]
-  );
+export function BoxLegend({ boxLabels, id }) {
   // create box legend
   let boxLegend = <></>;
   if (Array.isArray(boxLabels)) {
     boxLegend = boxLabels.map((label) => (
-      <div className="box-label" nodeid={id}>
+      <div className="box-label" nodeid={id} key={id}>
         <ContextMenuTrigger
           id={REMOVE_BOX_MENU_ID}
           key={id + label}
@@ -43,21 +55,15 @@ export function BoxLegend({ id }) {
 }
 BoxLegend.propTypes = {
   id: propTypes.string.isRequired,
+  boxLabels: propTypes.arrayOf(propTypes.string).isRequired,
 };
 
-export function ArrowLegend({ id }) {
-  const connections = useSelector(
-    (state) => state.blocks.present.graph.connections
-  );
-  // collect arrow labels associated with node
-  const connectionLabels = connections
-    .filter((c) => c[0] === id)
-    .map((c) => c[2]);
+export function ArrowLegend({ connectionLabels, id }) {
   // create arrow legend
   let arrowLegend = '';
-  if (connections) {
+  if (connectionLabels) {
     arrowLegend = connectionLabels.map((label) => (
-      <div className="arrow-label" nodeid={id}>
+      <div className="arrow-label" nodeid={id} key={id}>
         {` ◀️ ${label}`}
       </div>
     ));
@@ -67,4 +73,5 @@ export function ArrowLegend({ id }) {
 }
 ArrowLegend.propTypes = {
   id: propTypes.string.isRequired,
+  connectionLabels: propTypes.arrayOf(propTypes.string).isRequired,
 };
