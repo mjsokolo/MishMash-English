@@ -26,7 +26,6 @@ function SingleNode(props) {
   const selectedNode = useSelector(
     (state) => state.blocks.present.graph.selectedNode
   );
-  // determine color of legend and node
   const boxLabels = useSelector(
     (state) => state.blocks.present.graph.boxes[id]
   );
@@ -35,6 +34,7 @@ function SingleNode(props) {
       .filter((c) => c[0] === id)
       .map((c) => c[2])
   );
+  // determine color of legend and node
   let style = {};
   if (selectedNode === id) {
     style = { backgroundColor: 'gold' };

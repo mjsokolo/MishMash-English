@@ -36,7 +36,7 @@ export function BoxLegend({ boxLabels, id }) {
   let boxLegend = <></>;
   if (Array.isArray(boxLabels)) {
     boxLegend = boxLabels.map((label) => (
-      <div className="box-label" nodeid={id} key={id}>
+      <div className="box-label" nodeid={id} key={id + label}>
         <ContextMenuTrigger
           id={REMOVE_BOX_MENU_ID}
           key={id + label}
@@ -63,7 +63,7 @@ export function ArrowLegend({ connectionLabels, id }) {
   let arrowLegend = '';
   if (connectionLabels) {
     arrowLegend = connectionLabels.map((label) => (
-      <div className="arrow-label" nodeid={id} key={id}>
+      <div className="arrow-label" nodeid={id} key={id + label}>
         {` ◀️ ${label}`}
       </div>
     ));
