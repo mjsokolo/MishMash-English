@@ -62,11 +62,18 @@ export default function BlocksReducer(state = initialState, action) {
       // makes boxes into lists
       const boxes = { ...state.graph.boxes };
       const newBoxes = {};
-      Object.keys(boxes).forEach((key) => {
-        if (Array.isArray(boxes[key])) {
-          newBoxes[key] = boxes[key];
+
+      // get all the groups and the order
+      const { order } = action.payload.state;
+      const allNodes = Object.keys(groups).concat(order);
+
+      allNodes.forEach((node) => {
+        if (Array.isArray(boxes[node])) {
+          newBoxes[node] = boxes[node];
+        } else if (typeof boxes[node] === 'string') {
+          newBoxes[node] = [boxes[node]];
         } else {
-          newBoxes[key] = [boxes[key]];
+          newBoxes[node] = [];
         }
       });
 
