@@ -60,7 +60,7 @@ export default function BlocksReducer(state = initialState, action) {
 
       // backwards-compatibility change
       // makes boxes into lists
-      const boxes = { ...state.graph.boxes };
+      const boxes = { ...action.payload.state.graph.boxes };
       const newBoxes = {};
 
       // get all the groups and the order
