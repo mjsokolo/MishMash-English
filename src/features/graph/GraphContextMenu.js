@@ -4,26 +4,39 @@ import { ContextMenu, MenuItem, SubMenu } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const MODES = {
-  מקרה: { color: '#222255', types: ['arrow', 'box'] },
-  דין: { color: '#222255', types: ['arrow', 'box'] },
-  טעם: { color: '#222255', types: ['arrow'] },
-  כותרת: { color: '#222255', types: ['arrow', 'box'] },
-  מעשה: { color: '#222255', types: ['arrow', 'box'] },
-  כלל: { color: '#222255', types: ['arrow', 'box'] },
-  אמירה: { color: '#ee6677', types: ['arrow', 'box'] },
-  שאלה: { color: '#ee6677', types: ['arrow', 'box'] },
-  תשובה: { color: '#ee6677', types: ['arrow'] },
-  קושיא: { color: '#ee6677', types: ['arrow'] },
-  תירוץ: { color: '#ee6677', types: ['arrow'] },
-  ראיה: { color: '#ee6677', types: ['arrow'] },
-  סיוע: { color: '#ee6677', types: ['arrow'] },
-  אגדתא: { color: '#ee6677', types: ['arrow', 'box'] },
-  אוקימתא: { color: '#ee6677', types: ['arrow'] },
-  מחלוקת: { color: '#ee6677', types: ['arrow', 'box'] },
+  מקרה: { color: '#222255', types: ['link', 'box'] },
+  דין: { color: '#222255', types: ['link', 'box'] },
+  טעם: { color: '#222255', types: ['link'] },
+  כותרת: { color: '#222255', types: ['link', 'box'] },
+  מעשה: { color: '#222255', types: ['link', 'box'] },
+  כלל: { color: '#222255', types: ['link', 'box'] },
+  אמירה: { color: '#ee6677', types: ['link', 'box'] },
+  שאלה: { color: '#ee6677', types: ['link', 'box'] },
+  תשובה: { color: '#ee6677', types: ['link'] },
+  קושיא: { color: '#ee6677', types: ['link'] },
+  תירוץ: { color: '#ee6677', types: ['link'] },
+  ראיה: { color: '#ee6677', types: ['link'] },
+  סיוע: { color: '#ee6677', types: ['link'] },
+  אגדתא: { color: '#ee6677', types: ['link', 'box'] },
+  אוקימתא: { color: '#ee6677', types: ['link'] },
+  מחלוקת: { color: '#ee6677', types: ['link', 'box'] },
+  הלכה: { color: '#222255', types: ['link', 'box'] },
+  מדרש: { color: '#222255', types: ['link', 'box'] },
+  משנה: { color: '#ee6677', types: ['box'] },
 };
 
 const LAYOUT = {
-  Tannaitic: ['מקרה', 'דין', 'טעם', 'כותרת', 'מעשה', 'אוקימתא', 'כלל'],
+  Tannaitic: [
+    'מקרה',
+    'דין',
+    'טעם',
+    'כותרת',
+    'מעשה',
+    'אוקימתא',
+    'כלל',
+    'מדרש',
+    'הלכה',
+  ],
   Talmud: [
     'אמירה',
     'שאלה',
@@ -35,6 +48,7 @@ const LAYOUT = {
     'אגדתא',
     'אוקימתא',
     'מחלוקת',
+    'משנה',
   ],
 };
 
@@ -47,7 +61,7 @@ export function GraphContextMenu() {
     const { target, label, type, dispatch } = data;
     const { id } = element.firstChild;
     // document.body.style.cursor = `url(${cursor}), auto`;
-    if (type === 'arrow') {
+    if (type === 'link') {
       dispatch({ type: 'setMode', payload: { label, id } });
     } else {
       dispatch({ type: 'addBox', payload: { label, id } });
