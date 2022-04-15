@@ -20,9 +20,10 @@ export const MODES = {
   אגדתא: { color: '#ee6677', types: ['link', 'box'] },
   אוקימתא: { color: '#ee6677', types: ['link'] },
   מחלוקת: { color: '#ee6677', types: ['link', 'box'] },
-  הלכה: { color: '#222255', types: ['link', 'box'] },
-  מדרש: { color: '#222255', types: ['link', 'box'] },
+  'מדרש הלכה': { color: '#222255', types: ['link', 'box'] },
   משנה: { color: '#ee6677', types: ['box'] },
+  מתני: { color: '#222255', types: ['link', 'box'] },
+  פיסקא: { color: '#222255', types: ['link', 'box'] },
 };
 
 const LAYOUT = {
@@ -34,8 +35,9 @@ const LAYOUT = {
     'מעשה',
     'אוקימתא',
     'כלל',
-    'מדרש',
-    'הלכה',
+    'מדרש הלכה',
+    'מתני',
+    'פיסקא',
   ],
   Talmud: [
     'אמירה',
@@ -96,7 +98,6 @@ export function GraphContextMenu() {
 export function RemoveBoxMenu() {
   const removeBox = (event, data, element) => {
     const { target, dispatch } = data;
-    console.log(element);
     const label = element.firstChild.getAttribute('nodelabel');
     const id = element.firstChild.getAttribute('nodeid');
     dispatch({ type: 'removeBox', payload: { id, label } });

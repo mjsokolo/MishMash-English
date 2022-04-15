@@ -1,0 +1,21 @@
+#node-font-field {
+  display: inline;
+  font-size: "13.333px";
+  font-family: "Ariel";
+  text-align: ltr;
+}
+
+#node-font-field-input {
+  font-size: "13.333px";
+  font-family: "Ariel";
+  text-align: center;
+  background-color: beige;
+  border-radius: 5px;
+  border-width: 0;
+}
+
+#node-font-field-input:focus {
+  outline: none !important;
+  border:0px solid red;
+  /* box-shadow: 0 0 10px #719ECE; */
+}

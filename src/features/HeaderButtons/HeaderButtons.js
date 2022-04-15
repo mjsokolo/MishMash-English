@@ -15,6 +15,7 @@ import {
   getSelectionInfo,
 } from '../blocks/helpers';
 import HistoricalStyles from '../../config/HistoricalStyles';
+import { NodeFontField, BlocksFontField } from './FontField';
 
 const removeInlineStyles = (editorState, styles) => {
   const contentState = editorState.getCurrentContent();
@@ -230,10 +231,12 @@ export default function HeaderButtons() {
   return (
     <div className="header_buttons">
       <div id="command-buttons">
+        <NodeFontField />
         <UndoButton />
         <RedoButton />
         <MergeButton />
         <SplitButton />
+        <BlocksFontField />
       </div>
       <div id="historical-layer-buttons">
         <HistoricalLayerButton dataStyle="TANNA" name="Tannaitic" />
