@@ -39,7 +39,7 @@ export function BlocksFontField() {
     } else {
       zoom = 100;
     }
-    const blocks = document.getElementById('blocks');
+    const blocks = document.getElementById('blocks-selecting-area');
     blocks.style.zoom = `${zoom}%`;
     // scroll to the beginning of the text
     blocks.scrollLeft = blocks.scrollWidth - blocks.clientWidth;
