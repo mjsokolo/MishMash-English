@@ -16,7 +16,7 @@ export function NodeFontField() {
     links.style.zoom = `${zoom}%`;
   }
   return (
-    <form onSubmit={handleChange} id="node-font-field">
+    <form onSubmit={(e) => e.preventDefault()} id="node-font-field">
       {'⬛ 🔎'}
       <input
         id="node-font-field-input"
@@ -45,7 +45,7 @@ export function BlocksFontField() {
     blocks.scrollLeft = blocks.scrollWidth - blocks.clientWidth;
   }
   return (
-    <form onSubmit={handleChange} id="node-font-field">
+    <form onSubmit={(e) => e.preventDefault()} id="node-font-field">
       <input
         id="node-font-field-input"
         type="text"
