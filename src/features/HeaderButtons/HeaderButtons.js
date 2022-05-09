@@ -47,6 +47,7 @@ const allStyles = [
   'STAM_AMORA',
   'CLEAR',
   'TANAKH',
+  'BOLD',
 ];
 
 const primaryStyles = [
