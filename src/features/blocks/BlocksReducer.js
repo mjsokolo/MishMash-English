@@ -292,6 +292,23 @@ export default function BlocksReducer(state = initialState, action) {
       const { id, x, y } = action.payload;
       return { ...state, positions: { ...state.positions, [id]: [x, y] } };
     }
+    case 'updateGroupPosition': {
+      const { nodes, deltaX, deltaY } = action.payload;
+
+      // generates a full copy of the state
+      const newPositions = { ...state.positions };
+      Object.keys(newPositions).map((key) => {
+        newPositions[key] = { ...newPositions[key] };
+      });
+
+      // edits copy of the state
+      nodes.forEach((id) => {
+        newPositions[id][0] += deltaX;
+        newPositions[id][1] += deltaY;
+      });
+
+      return { ...state, positions: newPositions };
+    }
     case 'setMode':
       return {
         ...state,

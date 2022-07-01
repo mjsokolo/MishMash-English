@@ -64,6 +64,7 @@ function SingleNode(props) {
         key={id}
         defaultPosition={{ x, y }}
         bounds={{ left: 0, top: 0 }}
+        position={{ x, y }}
       >
         <fieldset className="node single-node" id={id} style={style}>
           <NodeLegend id={id} />
