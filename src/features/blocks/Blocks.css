@@ -52,7 +52,7 @@
   line-height: 1.4em;
   font-family: taamey frank, adobe-garamond-pro, crimson text, Georgia,
     times new roman, serif;
-  direction: rtl;
+  /* direction: rtl; */
   grid-area: 'text';
 }
 
