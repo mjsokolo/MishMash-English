@@ -61,7 +61,7 @@ export default function BlocksReducer(state = initialState, action) {
       // backwards-compatibility change
       // makes boxes into lists
       const boxes = { ...action.payload.state.graph.boxes };
-      const newBoxes = {};
+      let newBoxes = {};
 
       // get all the groups and the order
       const { order } = action.payload.state;
@@ -77,6 +77,33 @@ export default function BlocksReducer(state = initialState, action) {
         }
       });
 
+      // backwards-compatibility
+      // change Matni to Matnitin in links and boxes
+      // change Re’ayah and Siyu’a to Re’ayah/Siyu’a in links
+      const connections = [...action.payload.state.graph.connections];
+      const newConnections = connections.map((c) => {
+        const name = c[2];
+        if (name === 'מתני') {
+          return [c[0], c[1], 'מתניתין'];
+        }
+        if (name === 'ראיה' || c === 'סיוע') {
+          return [c[0], c[1], 'סיוע/ראיה'];
+        }
+        return c;
+      });
+
+      console.log(connections);
+      console.log(newConnections);
+
+      Object.keys(newBoxes).forEach((key) => {
+        const newBoxNames = newBoxes[key].map((name) => {
+          if (name === 'מתני') {
+            return 'מתניתין';
+          }
+          return name;
+        });
+        newBoxes[key] = newBoxNames;
+      });
       return {
         ...action.payload.state,
         groups,
@@ -84,6 +111,7 @@ export default function BlocksReducer(state = initialState, action) {
         graph: {
           ...action.payload.state.graph,
           boxes: { ...newBoxes },
+          connections: newConnections,
         },
       };
     }

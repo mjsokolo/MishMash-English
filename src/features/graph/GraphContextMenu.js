@@ -15,14 +15,12 @@ export const MODES = {
   תשובה: { color: '#ee6677', types: ['link'] },
   קושיא: { color: '#ee6677', types: ['link'] },
   תירוץ: { color: '#ee6677', types: ['link'] },
-  ראיה: { color: '#ee6677', types: ['link'] },
-  סיוע: { color: '#ee6677', types: ['link'] },
+  'סיוע/ראיה': { color: '#ee6677', types: ['link'] },
   אגדתא: { color: '#ee6677', types: ['link', 'box'] },
   אוקימתא: { color: '#ee6677', types: ['link'] },
   מחלוקת: { color: '#ee6677', types: ['link', 'box'] },
   'מדרש הלכה': { color: '#222255', types: ['link', 'box'] },
-  משנה: { color: '#ee6677', types: ['box'] },
-  מתני: { color: '#222255', types: ['link', 'box'] },
+  מתניתין: { color: '#222255', types: ['link', 'box'] },
   פיסקא: { color: '#222255', types: ['link', 'box'] },
 };
 
@@ -32,25 +30,26 @@ const LAYOUT = {
     'דין',
     'טעם',
     'כותרת',
+    '---',
     'מעשה',
     'אוקימתא',
     'כלל',
     'מדרש הלכה',
-    'מתני',
-    'פיסקא',
   ],
   Talmud: [
+    'מתניתין',
+    'פיסקא',
+    '---',
     'אמירה',
     'שאלה',
     'תשובה',
     'קושיא',
     'תירוץ',
-    'ראיה',
-    'סיוע',
+    'סיוע/ראיה',
+    '---',
     'אגדתא',
     'אוקימתא',
     'מחלוקת',
-    'משנה',
   ],
 };
 
@@ -76,25 +75,31 @@ export function GraphContextMenu() {
     <ContextMenu id={NODE_MENU_ID} className="context-menu" hideOnLeave>
       {Object.keys(LAYOUT).map((book) => (
         <SubMenu title={book} key={book}>
-          {LAYOUT[book].map((label) => (
-            <SubMenu title={label} key={label}>
-              {MODES[label].types.map((type) => (
-                <MenuItem
-                  onClick={handleClick}
-                  data={{ label, type, dispatch }}
-                  key={type}
-                >
-                  {type}
-                </MenuItem>
-              ))}
-            </SubMenu>
-          ))}
+          {LAYOUT[book].map((label) => {
+            if (label === '---') {
+              return <MenuItem>{label}</MenuItem>;
+            }
+            return (
+              <SubMenu title={label} key={label}>
+                {MODES[label].types.map((type) => (
+                  <>
+                    <MenuItem
+                      onClick={handleClick}
+                      data={{ label, type, dispatch }}
+                      key={type}
+                    >
+                      {type}
+                    </MenuItem>
+                  </>
+                ))}
+              </SubMenu>
+            );
+          })}
         </SubMenu>
       ))}
     </ContextMenu>
   );
 }
-
 export function RemoveBoxMenu() {
   const removeBox = (event, data, element) => {
     const { target, dispatch } = data;
