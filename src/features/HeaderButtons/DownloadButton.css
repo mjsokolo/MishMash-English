@@ -1,0 +1,28 @@
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
+  text-decoration: none;
+  cursor: pointer;
+
+  border: none;
+  background-color: #ddd;
+  border-radius: 16px;
+  margin: 5px;
+}
+
+input[type='button']:hover,
+input[type='submit']:hover,
+input[type='reset']:hover {
+  background-color: #88ccee;
+}
+
+.inputfile {
+  /* width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1; */
+  /* width: 225 px; */
+  border-color: black;
+}

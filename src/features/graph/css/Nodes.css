@@ -1,0 +1,67 @@
+.single-node {
+  position: absolute;
+  /* top: 125px; */
+  /* left: 0px; */
+  /* left: 0px; */
+  /* right: 300px; */
+  z-index: 1;
+  /* border: 2px #999 solid; */
+  border-radius: 5px;
+  text-align: left;
+  min-width: 125px;
+  max-width: 300px;
+  min-height: 2em;
+  color: black;
+  font-size: 0.5em;
+  background-color: beige;
+  line-height: 1.4em;
+  opacity: 0.75;
+  border: 2px beige solid;
+  box-shadow: 0px 0px;
+  /* direction: rtl; */
+}
+
+.group-node {
+  border-radius: 5px;
+  background-color: rgba(126, 113, 201, 0.7);
+  z-index: 0;
+  font-size: 0.5em;
+  margin-top: -4em;
+}
+
+.legend {
+  font-size: 2em;
+}
+
+.box-legend {
+  clear: right;
+}
+
+.arrow-label {
+  float: right;
+  line-height: 0.8em;
+}
+
+.clear {
+  clear: right;
+}
+
+.box-label {
+  float: right;
+  line-height: 0.8em;
+}
+
+.box-label:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.group-label {
+  float: left;
+  line-height: 0.8em;
+}
+
+.group-label:hover {
+  font-weight: bold;
+  cursor: pointer;
+}

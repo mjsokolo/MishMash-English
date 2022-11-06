@@ -1,0 +1,11 @@
+.svg:hover .arrow_body {
+  stroke-width: 5;
+}
+
+.arrow_body {
+  z-index: 1;
+}
+
+/* #connection_menu:hover ~ .arrow_body {
+  stroke-width: 8;
+} */
